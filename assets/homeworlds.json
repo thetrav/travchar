@@ -1,0 +1,14 @@
+[
+  ["region", "name",      "UWP",       "Gravity", "Trade",    "Str", "Con", "Agi", "Edu"],
+  ["Drinax", "Torpol",    "B55A77A-B", 0.60,      "Wa",       0,     0,     0,     1],
+  ["Drinax", "Clarke",    "B899753-8", 1.00,      "",         0,    -1,     0,     0],
+  ["Drinax", "Blue",      "B543487-B", 0.35,      "Po Ni Ht", 0,     0,     0,     1],
+  ["Drinax", "Pourne",    "A9B2887-A", 1.10,      "Fl",       0,     0,     0,     1],
+  ["Drinax", "Hilfer",    "B55077A-6", 1.20,      "De Po",    0,     0,     0,     0],
+  ["Drinax", "Paal",      "B564679-6", 0.45,      "Ag Ni Ri",-1,    -1,     0,     0],
+  ["Drinax", "Sink",      "D665220-5", 0.80,      "Ni Lo Lt Ga",0,   0,     0,     0],
+  ["Drinax", "The World", "E100551-7", 1.00,      "In Ni Va", 0,     0,     0,     0],
+  ["Drinax", "Fantasy",   "E788400-3", 0.90,      "Ni Lt",    1,     1,     0,    -2],
+  ["Drinax", "Vorito",    "E595ABB-A", 0.60,      "In Hi",    0,    -1,     0,     1],
+  ["Drinax", "Byrni",     "B955699-6", 1.10,      "Ag Ni",    0,     0,     0,     0]
+]
