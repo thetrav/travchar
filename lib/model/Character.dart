@@ -11,16 +11,19 @@ class Character {
   Homeworld homeworld;
   Map<String, Statistic> statRolls;
   Map<String, Skill> skills;
+  List<String> accreditations;
 
   Character({
     this.name,
     this.age,
     this.homeworld,
     this.statRolls,
-    this.skills
+    this.skills,
+    this.accreditations
   });
 
   Statistic stat(String s) => statRolls[s];
+  bool accredited(String a) => accreditations?.contains(a) ?? false;
 
   Character copy({
     String name,
@@ -28,13 +31,15 @@ class Character {
     Homeworld homeworld,
     Map<String, Statistic> statRolls,
     Map<String, Skill> skills,
+    List<String> accreditations
   }) {
     return Character(
       name: name ?? this.name,
       age: age ?? this.age,
       homeworld: homeworld ?? this.homeworld,
       statRolls: statRolls ?? this.statRolls,
-      skills: skills ?? this.skills
+      skills: skills ?? this.skills,
+      accreditations: accreditations ?? this.accreditations
     );
   }
 

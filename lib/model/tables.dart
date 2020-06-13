@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:travchar/model/Homeworld.dart';
+import 'package:travchar/model/advanced_education.dart';
 import 'package:travchar/model/background_skills_table.dart';
 import 'package:travchar/model/skill.dart';
 
@@ -15,7 +16,8 @@ class Tables {
       return Tables(
         await load("homeworlds", Homeworld.load),
         await load("skills", Skill.load),
-        await load("background_skills", BackgroundSkillsTable.load)
+        await load("background_skills", BackgroundSkillsTable.load),
+        await load("education", AdvancedEducation.load)
       );
     } catch( e, s) {
       print("error: $e\n\t$s");
@@ -23,9 +25,15 @@ class Tables {
     }
   }
 
-  Tables(this.homeworlds, this.skills, this.backgroundSkillsTable);
+  Tables(
+    this.homeworlds,
+    this.skills,
+    this.backgroundSkillsTable,
+    this.advancedEducations
+  );
 
   List<Homeworld> homeworlds;
   List<Skill> skills;
   BackgroundSkillsTable backgroundSkillsTable;
+  List<AdvancedEducation> advancedEducations;
 }

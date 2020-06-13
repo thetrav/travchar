@@ -26,6 +26,7 @@ class Homeworld {
   int get tech => uwpNumber(8);
 
   int uwpByCode(String code) =>uwpNumber({
+    "Starport": 0,
     "Size": 1,
     "Atmosphere": 2,
     "Hydropgraphic": 3,

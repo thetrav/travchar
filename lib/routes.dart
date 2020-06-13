@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:travchar/views/advanced_education_view.dart';
 import 'package:tuple/tuple.dart';
 
 import 'model/Character.dart';
@@ -16,5 +17,6 @@ final routes = <String, Widget Function(BuildContext)>{
   "/": (c) => NameView("/build/1"),
   "/build/1": (c) => HomeworldView("/build/2", arg<Character>(c)),
   "/build/2": (c) => StatsView("/build/3", cargs(c)),
-  "/build/3": (c) => BackgroundSkillsView("/build/4", cargs(c))
+  "/build/3": (c) => BackgroundSkillsView("/build/4", cargs(c)),
+  "/build/4": (c) => AdvancedEducationView("/build/5", cargs(c))
 };

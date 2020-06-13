@@ -1,0 +1,91 @@
+[
+  {
+    "name": "Educational Diploma",
+    "requirements": [
+      {"type":  "stat", "stat": "edu", "score": "3-"}
+    ]
+  },
+  {
+    "name": "University",
+    "requirements": [
+      {"type": "stat", "stat": "int", "score": "8+"},
+      {"type": "stat", "stat": "edu", "score": "5+"}
+    ]
+  },
+  {
+    "name": "Merchant Academy",
+    "requirements": [
+      {"type": "stat", "stat": "edu", "score": "5+"},
+      {"type": "homeworld", "subType": "uwpNum",
+        "code": "Starport", "num": "10+"
+      }
+    ]
+  },
+  {
+    "name": "Military Academy",
+    "requirements": [
+      {"type": "stat", "stat": "end", "score": "8+"},
+      {"type": "stat", "stat": "int", "score": "8+"},
+      {"type": "stat", "stat": "edu", "score": "5+"},
+      {"type": "stat", "stat": "soc", "score": "8+"}
+    ]
+  },
+  {
+    "name": "Naval Academy",
+    "requirements": [
+      {"type": "stat", "stat": "end", "score": "8+"},
+      {"type": "stat", "stat": "int", "score": "9+"},
+      {"type": "stat", "stat": "edu", "score": "5+"},
+      {"type": "stat", "stat": "soc", "score": "8+"}
+    ]
+  },
+  {
+    "name": "OTC/NOTC",
+    "requirements": [
+      {"type": "stat", "stat": "soc", "score": "4+"}
+    ]
+  },
+  {
+    "name": "Grad School (Masters)",
+    "requirements": [
+      {"type": "or",
+        "options": [
+          {"type": "accreditation", "code": "Batchelor Degree"},
+          {"type": "career", "name": "Scholar", "rank": "3+"}
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Grad School (PhD)",
+    "requirements": [
+      {"type": "or",
+        "options": [
+          {"type": "accreditation", "code": "Batchelor Degree"},
+          {"type": "career", "name": "Scholar", "rank": "3+"}
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Medical School",
+    "requirements": [
+      {"type": "stat", "stat": "int", "score": "9+"},
+      {"type": "or",
+        "options": [
+          {"type": "accreditation", "code": "BSc"},
+          {"type": "accreditation", "code": "BA"}
+        ]
+      },
+      {"type": "skill", "name": "Medic", "rank": "0+"},
+      {"type": "skill", "name": "Life Science", "rank": "0+"}
+    ]
+  },
+  {
+    "name": "Technical Institute",
+    "requirements": [
+      {"type": "stat", "stat": "int", "score": "9+"},
+      {"type": "stat", "stat": "edu", "score": "4+"}
+    ]
+  }
+]

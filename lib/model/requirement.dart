@@ -1,11 +1,21 @@
 
+import 'dart:convert';
+
 import 'Character.dart';
 
 abstract class Requirement {
   bool evaluate(Character c);
-  static Requirement parse(dynamic data) => {
-    "stat": StatRequirement.parse
-  }[data['type'].toString()](data);
+  static Requirement parse(dynamic data) {
+    print("parsing requirement ${jsonEncode(data)}");
+    return {
+      "stat": StatRequirement.parse,
+      "homeworld": HomeworldRequirement.parse,
+      "skill": SkillRequirement.parse,
+      "career": CareerRequirement.parse,
+      "accreditation": AccreditationRequirement.parse,
+      "or": OrRequirement.parse
+    }[data['type'].toString()](data);
+  }
 
 
   bool compareNum(int n, String compareString) {
@@ -19,19 +29,30 @@ abstract class Requirement {
   }
 }
 
-class StatRequirement extends Requirement {
-  final String name;
-  final String diceMod;
+class OrRequirement extends Requirement {
+  final List<Requirement> options;
+  OrRequirement(this.options);
+  static OrRequirement parse(d) =>
+    OrRequirement(d["options"].map<Requirement>(Requirement.parse).toList());
 
-  StatRequirement(this.name, this.diceMod);
+  @override
+  bool evaluate(Character c) =>
+    options.any((r)=> r.evaluate(c));
+}
+
+class StatRequirement extends Requirement {
+  final String stat;
+  final String score;
+
+  StatRequirement(this.stat, this.score);
   static StatRequirement parse(dynamic data) =>
-    StatRequirement(data["name"], data["dm"]);
+    StatRequirement(data["stat"], data["score"]);
 
   @override
   bool evaluate(Character c) =>
     compareNum(
-      c.stat(name).diceMod,
-      diceMod
+      c.stat(stat).score,
+      score
     );
 }
 
@@ -46,6 +67,17 @@ class SkillRequirement extends Requirement {
   bool evaluate(Character c) =>
     c.skills.containsKey(skill) &&
     compareNum(c.skills[skill].rank, rank);
+}
+
+class AccreditationRequirement extends Requirement {
+  final String code;
+  AccreditationRequirement(this.code);
+  static AccreditationRequirement parse(d) =>
+    AccreditationRequirement(d["code"]);
+
+  @override
+  bool evaluate(Character c) =>
+    c.accredited(code);
 }
 
 class CareerRequirement extends Requirement {

@@ -1,15 +1,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:travchar/components/TButton.dart';
-import 'package:travchar/components/TLoader.dart';
 import 'package:travchar/components/t_pick_list.dart';
 import 'package:travchar/model/Character.dart';
-import 'package:travchar/model/background_skills_table.dart';
 import 'package:travchar/model/skill.dart';
 import 'package:travchar/model/tables.dart';
 import 'package:tuple/tuple.dart';
-
-import 'stats/stat_table.dart';
 
 class BackgroundSkillsView extends StatefulWidget {
   final String nextRoute;
@@ -51,6 +47,7 @@ class BackgroundSkillsViewState extends State<BackgroundSkillsView> {
   void done(BuildContext c) {
     final skillMap = <String, Skill>{};
     selected.forEach((s) {
+      print("saving $s");
       skillMap[s] = widget.tables.skills.firstWhere((skill) => s == skill.name);
     });
     Navigator.pushReplacementNamed(c, widget.nextRoute,

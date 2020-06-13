@@ -1,7 +1,7 @@
 {
   "Admin": [],
   "Advocate": [],
-  "Adminals": ["Riding", "Vetinary", "Training"],
+  "Animals": ["Riding", "Vetinary", "Training"],
   "Athletics": ["Co-ordination", "Endurance", "Strength"],
   "Archery": [],
   "Art": ["Acting", "Dance", "Holography", "Instrument", "Sculpting", "Writing"],
@@ -17,6 +17,7 @@
   "Engineering (Starship Operations)": ["M-Drive", "J-Drive", "Electronics", "Life Support", "Power"],
   "Explosives": [],
   "Flyer": ["Grav", "Fixed Wing", "Rotary Wing"],
+  "Gambling": [],
   "Gunnery": ["Turrets", "Ortillery", "Screens", "Bays", "Spinal"],
   "Gun Combat": ["Slug Pistol", "Slug Rifle", "Energy Pistol", "Energy Rifle", "Support Weapon"],
   "Heavy Weapons": ["Rocket/Missile", "Grenade Launcher", "Man-portable Artillery", "Mortar", "Field Artillery", "Advanced Grenade Pod", "Laser Designation", "Vehicle Gunnery", "Meson Artillery"],
