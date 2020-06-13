@@ -12,3 +12,5 @@ int sum(List<int> l) =>
 
 T arg<T>(BuildContext c) =>
   ModalRoute.of(c).settings.arguments as T;
+
+List<String> stringList(d) => d.map<String>((e)=> e.toString()).toList();

@@ -38,8 +38,8 @@ class ShiftStatsState extends State<ShiftStats> {
 
     setState((){
       clearDuplicate(to1, [from1]);
-      clearDuplicate(from2, [to1, from1]);
-      clearDuplicate(to2, [from2, to1, from1]);
+      clearDuplicate(from2, [to1]);
+      clearDuplicate(to2, [from2, from1]);
     });
   }
 
@@ -61,10 +61,10 @@ class ShiftStatsState extends State<ShiftStats> {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         Text("from:"),
-        DropDown(from2, stats([from1, to1]), onChange: onChange),
+        DropDown(from2, stats([to1]), onChange: onChange),
         TTicker(amount2, max: 2),
         Text("to:"),
-        DropDown(to2, stats([from1, to1, from2]), onChange: onChange)
+        DropDown(to2, stats([from1, from2]), onChange: onChange)
       ]
     ),
     Row(children: [

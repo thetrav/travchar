@@ -11,11 +11,16 @@ class Tables {
       DefaultAssetBundle.of(c)
         .loadString("assets/$name.json")
         .then(builder);
-    return Tables(
-      await load("homeworlds", Homeworld.load),
-      await load("skills", Skill.load),
-      await load("background_skills", BackgroundSkillsTable.load)
-    );
+    try {
+      return Tables(
+        await load("homeworlds", Homeworld.load),
+        await load("skills", Skill.load),
+        await load("background_skills", BackgroundSkillsTable.load)
+      );
+    } catch( e, s) {
+      print("error: $e\n\t$s");
+      throw e;
+    }
   }
 
   Tables(this.homeworlds, this.skills, this.backgroundSkillsTable);

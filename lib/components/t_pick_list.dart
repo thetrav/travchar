@@ -13,7 +13,7 @@ class TPickList<T> extends StatelessWidget {
 
   void toggle(T e) {
     if(selected.contains(e)) {
-      selectionChanged(selected.where((s) => e!= e).toList());
+      selectionChanged(selected.where((s) => s != e).toList());
     } else {
       selectionChanged(selected + [e]);
     }

@@ -1,5 +1,7 @@
 
 
+import 'package:travchar/model/skill.dart';
+
 import '../util.dart';
 import 'Homeworld.dart';
 
@@ -8,12 +10,14 @@ class Character {
   int age;
   Homeworld homeworld;
   Map<String, Statistic> statRolls;
+  Map<String, Skill> skills;
 
   Character({
     this.name,
     this.age,
     this.homeworld,
-    this.statRolls
+    this.statRolls,
+    this.skills
   });
 
   Statistic stat(String s) => statRolls[s];
@@ -22,13 +26,15 @@ class Character {
     String name,
     int age,
     Homeworld homeworld,
-    Map<String, Statistic> statRolls
+    Map<String, Statistic> statRolls,
+    Map<String, Skill> skills,
   }) {
     return Character(
       name: name ?? this.name,
       age: age ?? this.age,
       homeworld: homeworld ?? this.homeworld,
-      statRolls: statRolls ?? this.statRolls
+      statRolls: statRolls ?? this.statRolls,
+      skills: skills ?? this.skills
     );
   }
 

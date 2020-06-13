@@ -1,61 +1,88 @@
 {
-  "world": {
-    "Agricultural": [
-      "Animals"
-    ],
-    "Asteroid": [
-      "Zero G",
-      "Vac Suit"
-    ],
-    "Desert": [
-      "Survival"
-    ],
-    "High Population": [
-      "Streetwise"
-    ],
-    "High Technology": [
-      "Computers",
-      "Flyer",
-      "Comms",
-      "Engineer",
-      "Mechanic",
-      "Any Science"
-    ],
-    "Pre-Stellar Technology": [
-      "Drive",
-      "Comms",
-      "Computers",
-      "Mechanic",
-      "Any Science"
-    ],
-    "Low Technology": [
-      "Survival",
-      "Navigation",
-      "Animals"
-    ],
-    "Hydrographics 7+": [
-      "Seafarer"
-    ],
-    "Exotic Atmosphere": [
-      "Vac Suit"
-    ],
-    "Vacuum": [
-      "Vac Suit"
-    ],
-    "High Gravity (1.2 – 1.5)": [
-      "+1 Str",
-      "+1 End"
-    ],
-    "Very High Gravity (>1.5)": [
-      "+1 Str",
-      "+1 End",
-      "May select each increase up to two times"
-    ],
-    "Law <6": [
-      "Gun Combat"
-    ]
-  },
-  "Any World": [
+  "statGains": [
+    {
+      "requirement": {"subType": "gravity", "min":1.2, "max": 1.5},
+      "stats": ["str", "end"],
+      "statGains": 1
+    },
+    {
+      "requirement": {"subType": "gravity", "min":1.5, "max": 1.5},
+      "stats": ["str", "end"],
+      "statGains": 2
+    }
+  ],
+  "restrictedSkills": [
+    {
+      "requirement": {"subType": "tradeCode", "code": "Ag"},
+      "skills": ["Animals"]
+    },
+    {
+      "requirement": {"subType": "tradeCode", "code": "As"},
+      "skills": ["Zero G", "Vac Suit"]
+    },
+    {
+      "requirement": {"subType": "tradeCode", "code": "De"},
+      "skills": ["Survival"]
+    },
+    {
+      "requirement": {"subType": "tradeCode", "code": "Hi"},
+      "skills": ["Stretwise"]
+    },
+    {
+      "requirement": {"subType": "tradeCode", "code": "Ht"},
+      "skills": [
+        "Computers",
+        "Flyer",
+        "Comms",
+        "Engineer",
+        "Mechanic",
+        "Any Science"
+      ]
+    },
+    {
+      "requirement": {"subType": "tradeCode", "code": "Hi"},
+      "skills": ["Stretwise"]
+    },
+    {
+      "requirement": {"subType": "tradeCode", "code": "Pre-Stellar Technology"},
+      "skills": [
+        "Drive",
+        "Comms",
+        "Computers",
+        "Mechanic",
+        "Any Science"
+      ]
+    },
+    {
+      "requirement": {"subType": "tradeCode", "code": "Lt"},
+      "skills": [
+        "Survival",
+        "Navigation",
+        "Animals"
+      ]
+    },
+    {
+      "requirement": {"subType": "tradeCode", "code": "Va"},
+      "skills": ["Vac Suit"]
+    },
+    {
+      "requirement": {"subType": "uwpNum", "code": "Hydropgraphic",
+        "num": "7+"
+      },
+      "skills": ["Seafarer"]
+    },
+    {
+      "requirement": {"subType": "uwpNum", "code": "Atmosphere", "num": "10"},
+      "skills": ["Vac Suit"]
+    },
+    {
+      "requirement": {"subType": "uwpNum", "code": "Law",
+        "num": "5-"
+      },
+      "skills": ["Gun Combat"]
+    }
+  ],
+  "commonSkills": [
     "Admin",
     "Art",
     "Carouse",

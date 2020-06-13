@@ -13,6 +13,28 @@ class Homeworld {
   int dex;
   int edu;
 
+  String uwpCode(int index) => uwp.substring(index, index+1);
+  int uwpNumber(int index) => int.parse("0x${uwpCode(index)}");
+
+  String get starPort => uwpCode(0);
+  int get size => uwpNumber(1);
+  int get atmosphere => uwpNumber(2);
+  int get hydrographic => uwpNumber(3);
+  int get population => uwpNumber(4);
+  int get government => uwpNumber(5);
+  int get law => uwpNumber(6);
+  int get tech => uwpNumber(8);
+
+  int uwpByCode(String code) =>uwpNumber({
+    "Size": 1,
+    "Atmosphere": 2,
+    "Hydropgraphic": 3,
+    "Population": 4,
+    "Government": 5,
+    "Law": 6,
+    "Tech": 8
+  }[code]);
+
 
   Homeworld({this.region, this.name, this.uwp, this.gravity, this.trade,
     this.str, this.end, this.dex, this.edu});
