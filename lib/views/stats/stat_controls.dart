@@ -6,6 +6,8 @@ import 'package:travchar/views/stats/reroll_stats.dart';
 import 'package:travchar/views/stats/shift_stats.dart';
 import 'package:travchar/views/stats/swap_stats.dart';
 
+import 'stat_table.dart';
+
 class StatControls extends StatelessWidget {
   final Map<String, Statistic> stats;
   List<Statistic> get allStats => stats.values.toList();
@@ -15,7 +17,6 @@ class StatControls extends StatelessWidget {
   final Function(String, int, String, String, int, String) shiftStats;
   final Function(String) rerollStat;
   final Function done;
-
 
   StatControls(this.stats, {
     this.totalStatValue,
@@ -30,32 +31,6 @@ class StatControls extends StatelessWidget {
     padding: EdgeInsets.all(10),
     child: Text(s)
   );
-
-  text(String s) => Container(
-    width: 80,
-    child: Text(s)
-  );
-
-  Widget statHeader() => Row(
-    mainAxisAlignment: MainAxisAlignment.spaceAround,
-    children: [
-      text(""),
-      text("Score"),
-      text("Mod")
-    ]
-  );
-
-  Widget statView(String statName) {
-    final stat = stats[statName];
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        text(stat.name),
-        text("${stat.score}"),
-        text("${stat.diceMod}")
-      ]
-    );
-  }
 
   List<Widget> modifications(BuildContext c) {
     Widget card(Widget child) =>
@@ -85,32 +60,9 @@ class StatControls extends StatelessWidget {
   Widget build(BuildContext context) => Column(
     children: [
       SizedBox(height: 10),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text("Physical Stats"),
-              statHeader(),
-              statView("str"),
-              statView("dex"),
-              statView("end"),
-            ]
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text("Other Stats"),
-              statHeader(),
-              statView("int"),
-              statView("edu"),
-              statView("soc"),
-            ]
-          ),
-        ]),
+      StatTable(stats),
       paddedText("Total Score $totalStatValue"),
       ...modifications(context),
-      TButton("Done", () => done(context))
+      TButton("Done (will apply homeworld)", () => done(context))
     ]);
 }

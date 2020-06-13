@@ -18,7 +18,7 @@ class Character {
 
   Statistic stat(String s) => statRolls[s];
 
-  copy({
+  Character copy({
     String name,
     int age,
     Homeworld homeworld,

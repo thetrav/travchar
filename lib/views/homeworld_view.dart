@@ -7,8 +7,8 @@ import 'package:travchar/components/TLoader.dart';
 import 'package:travchar/model/Character.dart';
 import 'package:travchar/model/Dice.dart';
 import 'package:travchar/model/Homeworld.dart';
-
-import '../util.dart';
+import 'package:travchar/model/tables.dart';
+import 'package:tuple/tuple.dart';
 
 class HomeworldView extends StatelessWidget {
 
@@ -18,22 +18,21 @@ class HomeworldView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => TLoader(
-    DefaultAssetBundle.of(context)
-      .loadString("assets/homeworlds.json")
-      .then(Homeworld.load),
-    (c, h) => HomeworldLoadedView(
+    Tables.load(context),
+    (c, t) => HomeworldLoadedView(
       nextRoute: nextRoute,
       character: character,
-      homeworlds: h
+      tables: t
     )
   );
 }
 
 class HomeworldLoadedView extends StatefulWidget {
   final Character character;
-  final List<Homeworld> homeworlds;
+  final Tables tables;
+  List<Homeworld> get homeworlds => tables.homeworlds;
   final String nextRoute;
-  HomeworldLoadedView({this.character, this.homeworlds, this.nextRoute});
+  HomeworldLoadedView({this.character, this.tables, this.nextRoute});
   @override
   State<StatefulWidget> createState() => HomeworldViewState();
 
@@ -45,8 +44,9 @@ class HomeworldViewState extends State<HomeworldLoadedView> {
 
   void select(Homeworld h, BuildContext c) {
     Navigator.pushReplacementNamed(c, widget.nextRoute,
-      arguments: widget.character.copy(
-        homeworld: h
+      arguments: Tuple2<Character, Tables>(
+        widget.character.copy(homeworld: h),
+        widget.tables
       )
     );
   }

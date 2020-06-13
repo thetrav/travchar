@@ -1,0 +1,73 @@
+{
+  "world": {
+    "Agricultural": [
+      "Animals"
+    ],
+    "Asteroid": [
+      "Zero G",
+      "Vac Suit"
+    ],
+    "Desert": [
+      "Survival"
+    ],
+    "High Population": [
+      "Streetwise"
+    ],
+    "High Technology": [
+      "Computers",
+      "Flyer",
+      "Comms",
+      "Engineer",
+      "Mechanic",
+      "Any Science"
+    ],
+    "Pre-Stellar Technology": [
+      "Drive",
+      "Comms",
+      "Computers",
+      "Mechanic",
+      "Any Science"
+    ],
+    "Low Technology": [
+      "Survival",
+      "Navigation",
+      "Animals"
+    ],
+    "Hydrographics 7+": [
+      "Seafarer"
+    ],
+    "Exotic Atmosphere": [
+      "Vac Suit"
+    ],
+    "Vacuum": [
+      "Vac Suit"
+    ],
+    "High Gravity (1.2 – 1.5)": [
+      "+1 Str",
+      "+1 End"
+    ],
+    "Very High Gravity (>1.5)": [
+      "+1 Str",
+      "+1 End",
+      "May select each increase up to two times"
+    ],
+    "Law <6": [
+      "Gun Combat"
+    ]
+  },
+  "Any World": [
+    "Admin",
+    "Art",
+    "Carouse",
+    "Language",
+    "Medic",
+    "Science",
+    "Melee",
+    "Advocate",
+    "Steward",
+    "Athletics",
+    "Trade",
+    "Gambling",
+    "Persuade"
+  ]
+}

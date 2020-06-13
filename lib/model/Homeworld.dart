@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:travchar/model/Character.dart';
+
 class Homeworld {
   String region;
   String name;
@@ -7,13 +9,27 @@ class Homeworld {
   double gravity;
   List<String> trade;
   int str;
-  int con;
-  int agi;
+  int end;
+  int dex;
   int edu;
 
 
   Homeworld({this.region, this.name, this.uwp, this.gravity, this.trade,
-    this.str, this.con, this.agi, this.edu});
+    this.str, this.end, this.dex, this.edu});
+
+  Map<String, StatAdjustment> get statAdjustments {
+    final mods = <String, StatAdjustment>{};
+    void apply(String s, int v) {
+      if(v != 0) {
+        mods[s] = StatAdjustment(v, "Homeworld");
+      }
+    }
+    apply("str", this.str);
+    apply("dex", this.dex);
+    apply("end", this.end);
+    apply("edu", this.edu);
+    return mods;
+  }
 
   static List<Homeworld>load(String value) {
     final List<dynamic> rows = jsonDecode(value);
@@ -27,8 +43,8 @@ class Homeworld {
     gravity: map[3],
     trade: map[4].split(" "),
     str: map[5],
-    con: map[6],
-    agi: map[7],
+    end: map[6],
+    dex: map[7],
     edu: map[8]
   );
 }

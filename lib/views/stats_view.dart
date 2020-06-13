@@ -1,6 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:travchar/model/tables.dart';
+import 'package:tuple/tuple.dart';
 import '../model/Character.dart';
 import '../model/Dice.dart';
 import '../util.dart';
@@ -9,8 +11,10 @@ import 'stats/stat_controls.dart';
 class StatsView extends StatefulWidget {
   final String nextRoute;
   final Character character;
+  final Tables tables;
 
-  StatsView(this.nextRoute, this.character);
+  StatsView(this.nextRoute, Tuple2<Character, Tables> t):
+      this.character = t.item1, this.tables = t.item2;
 
   @override
   State<StatefulWidget> createState() =>
@@ -32,10 +36,17 @@ class StatsViewState extends State<StatsView> {
   }
 
   void done(BuildContext c) {
+    final mods = widget.character.homeworld.statAdjustments;
+    mods.forEach((key, value) {
+      stats[key].adjustments.add(value);
+    });
     Navigator.pushReplacementNamed(
       c,
       widget.nextRoute,
-      arguments: widget.character.copy(statRolls: stats)
+      arguments: Tuple2<Character, Tables>(
+        widget.character.copy(statRolls: stats),
+        widget.tables
+      )
     );
   }
 
