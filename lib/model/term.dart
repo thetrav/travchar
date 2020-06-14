@@ -149,7 +149,7 @@ class ChooseSkills extends TermEffect {
   final int level;
   final int picks;
   final List<String> tables;
-  List<Skill> selected = [];
+  List<TermEffect> selected = [];
   ChooseSkills({this.level, this.picks, this.tables});
   static ChooseSkills parse(d) => ChooseSkills(
     level: d["level"],
@@ -160,8 +160,10 @@ class ChooseSkills extends TermEffect {
   Character apply(Character c) {
     final skills = {...c.skills};
     selected.forEach((s) {
-      if(skills.containsKey(s.name) && skills[s.name].rank < level) {
-        skills[s.name] = Skill(name: s.name, rank: level);
+      if(s is SkillGainBenefit) {
+        if (skills.containsKey(s.skill) && skills[s.skill].rank < level) {
+          skills[s.skill] = Skill(name: s.skill, rank: level);
+        }
       }
     });
     return c.copy(
@@ -169,9 +171,24 @@ class ChooseSkills extends TermEffect {
     );
   }
 
+  String labels() {
+    return selected.map((e) {
+      if(e is SkillGainBenefit) {
+        return e.skill;
+      }
+      return "";
+    }).join(", ");
+  }
+
   @override
-  String toString() => "Chose $picks skills to have at rank $level from $tables";
-  String get route => type;
+  String toString() {
+    if(selected.isEmpty) {
+      return "Choose $picks skills to have at rank $level from $tables";
+    } else {
+      return "${labels()} set to $level";
+    }
+  }
+    String get route => type;
 }
 
 class StatRaisedTo extends TermEffect {

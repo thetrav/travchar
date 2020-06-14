@@ -27,16 +27,16 @@ class ChooseSkillsViewState extends State<ChooseSkillsView> {
     return rank < widget.effect.level;
   }
 
-  List<String> picked = [];
+  List<TermEffect> picked = [];
 
-  List<String> get options {
-    final opts = <String>[];
+  List<TermEffect> get options {
+    final opts = <TermEffect>[];
     widget.tables.forEach((key, table) {
       table.table.forEach((i, effect) {
         if(effect is SkillGainBenefit) {
           final skill = effect.skill;
           if(belowEffect(skill)) {
-            opts.add(skill);
+            opts.add(effect);
           }
         }
       });
@@ -46,14 +46,22 @@ class ChooseSkillsViewState extends State<ChooseSkillsView> {
   int get picks => widget.effect.picks;
   int get picksLeft => picks - picked.length;
 
-  void selectionChanged(List<String> newSelection) {
+  void selectionChanged(List<TermEffect> newSelection) {
     if(newSelection.length <= picks) {
       setState(()=> picked = newSelection);
     }
   }
 
-  void done() {
+  void done(BuildContext c) {
+    widget.effect.selected = picked;
+    Navigator.pop(c, widget.effect);
+  }
 
+  String label(TermEffect e) {
+    if(e is SkillGainBenefit) {
+      return "Set ${e.skill} to ${widget.effect.level}";
+    }
+    return "OOPS! $e";
   }
 
   @override
@@ -62,9 +70,9 @@ class ChooseSkillsViewState extends State<ChooseSkillsView> {
     Expanded(child: TPickList(
       elements: options,
       selected: picked,
-      labelBuilder: (s) => s,
+      labelBuilder: label,
       selectionChanged: selectionChanged
     )),
-    TButton("done", done)
+    TButton("done", () => done(context))
   ]);
 }
