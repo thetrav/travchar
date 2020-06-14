@@ -1,11 +1,22 @@
 import 'package:travchar/model/Character.dart';
 import 'package:travchar/model/Dice.dart';
+import 'package:travchar/model/advanced_education.dart';
 import 'package:travchar/model/skill.dart';
 
 import '../util.dart';
 
 abstract class Term {
-  List<TermEffect> effects;
+  final List<TermEffect> effects;
+  final List<String> history;
+  String get route;
+  Term(this.effects, this.history);
+}
+
+class EducationTerm extends Term {
+  String get route => "/term/education";
+  AdvancedEducation education;
+  EducationTerm({this.education, List<TermEffect> effects, List<String> history}):
+    super(effects, history);
 }
 
 abstract class TermEffect {
@@ -17,13 +28,14 @@ abstract class TermEffect {
       ChooseSkills.type: ChooseSkills.parse,
       RolledBenefit.type: RolledBenefit.parse,
       StatGainBenefit.type: StatGainBenefit.parse,
-      SkillGainBenefit.type: StatGainBenefit.parse,
+      SkillGainBenefit.type: SkillGainBenefit.parse,
       SpecialisationGainBenefit.type: SpecialisationGainBenefit.parse,
       ChooseBenefit.type: ChooseBenefit.parse,
       StatRaisedTo.type: StatRaisedTo.parse,
       Certification.type: Certification.parse
     }[d["type"]](d);
   }
+  String get route;
 }
 
 class YearsPass extends TermEffect {
@@ -36,6 +48,7 @@ class YearsPass extends TermEffect {
 
   @override
   String toString() => "$years years pass";
+  String get route => type;
 }
 
 class RolledBenefit extends TermEffect {
@@ -56,6 +69,7 @@ class RolledBenefit extends TermEffect {
 
   @override
   String toString() => "roll on $table table";
+  String get route => type;
 }
 
 class StatGainBenefit extends TermEffect {
@@ -73,6 +87,7 @@ class StatGainBenefit extends TermEffect {
 
   @override
   String toString() => "Adjust $stat by $amount";
+  String get route => type;
 }
 
 class SkillGainBenefit extends TermEffect {
@@ -80,8 +95,12 @@ class SkillGainBenefit extends TermEffect {
   final String skill;
   final int amount;
   SkillGainBenefit(this.skill, this.amount);
-  static SkillGainBenefit parse(d) =>
-    SkillGainBenefit(d["skill"], d["amount"]);
+  static SkillGainBenefit parse(d) {
+    if(d["skill"] == null) {
+      throw "missing skill in $d";
+    }
+    return SkillGainBenefit(d["skill"], d["amount"]);
+  }
 
   @override
   Character apply(Character c) {
@@ -96,6 +115,7 @@ class SkillGainBenefit extends TermEffect {
 
   @override
   String toString() => "Adjust $skill by $amount";
+  String get route => type;
 }
 
 
@@ -121,6 +141,7 @@ class SpecialisationGainBenefit extends TermEffect {
 
   @override
   String toString() => "Adjust $skill ($specialisation) by $amount";
+  String get route => type;
 }
 
 class ChooseSkills extends TermEffect {
@@ -150,6 +171,7 @@ class ChooseSkills extends TermEffect {
 
   @override
   String toString() => "Chose $picks skills to have at rank $level from $tables";
+  String get route => type;
 }
 
 class StatRaisedTo extends TermEffect {
@@ -174,6 +196,7 @@ class StatRaisedTo extends TermEffect {
 
   @override
   String toString() => "raise $stat to $score";
+  String get route => type;
 }
 
 class Certification extends TermEffect {
@@ -189,6 +212,7 @@ class Certification extends TermEffect {
 
   @override
   String toString() => "gain $code certification";
+  String get route => type;
 }
 
 class ChooseBenefit extends TermEffect {
@@ -206,4 +230,5 @@ class ChooseBenefit extends TermEffect {
 
   @override
   String toString() => "Choose from ${options.join(" or ")}";
+  String get route => type;
 }

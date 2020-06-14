@@ -27,20 +27,20 @@
     ],
     "tables": {
       "personalDevelopmentA": {
-        "1": {"type": "skillGain", "skill":  "Admin", "amount": 1},
+        "1": {"type": "skillGain", "skill": "Admin", "amount": 1},
         "2": {"type": "specialisationGain", "skill":  "Art", "specialisation": "Writing", "amount": 1},
-        "3": {"type": "skillGain", "skill":  "Computers", "amount": 1},
-        "4": {"type": "skillGain", "skill":  "Jack of All Trades", "amount": 1},
-        "5": {"type": "skillGain", "skill":  "Persuade", "amount": 1},
-        "6": {"type": "skillGain", "skill":  "Mechanic", "amount": 1}
+        "3": {"type": "skillGain", "skill": "Computers", "amount": 1},
+        "4": {"type": "skillGain", "skill": "Jack of All Trades", "amount": 1},
+        "5": {"type": "skillGain", "skill": "Persuade", "amount": 1},
+        "6": {"type": "skillGain", "skill": "Mechanic", "amount": 1}
       },
       "personalDevelopmentB": {
-        "1": {"type": "skillGain", "skill":  "Steward", "amount": 1},
-        "2": {"type": "skillGain", "skill":  "Language", "amount": 1},
-        "3": {"type": "skillGain", "skill":  "Carouse", "amount": 1},
-        "4": {"type": "skillGain", "skill":  "Comms", "amount": 1},
-        "5": {"type": "skillGain", "skill":  "Computers", "amount": 1},
-        "6": {"type": "statGain", "stat":  "edu", "amount": 1}
+        "1": {"type": "skillGain", "skill": "Steward", "amount": 1},
+        "2": {"type": "skillGain", "skill": "Language", "amount": 1},
+        "3": {"type": "skillGain", "skill": "Carouse", "amount": 1},
+        "4": {"type": "skillGain", "skill": "Comms", "amount": 1},
+        "5": {"type": "skillGain", "skill": "Computers", "amount": 1},
+        "6": {"type": "statGain", "stat": "edu", "amount": 1}
       }
     }
   },

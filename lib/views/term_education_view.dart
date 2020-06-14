@@ -35,7 +35,13 @@ class TermEducationViewState extends State<TermEducationView> {
   }
 
   Widget effectTile(BuildContext c, TermEffect e) {
-    return Text(e.toString());
+    return ListTile(
+      title: Text(e.toString()),
+      onTap: () => Navigator.pushNamed(c,
+      "/${e.route}",
+      arguments: Tuple3(widget.character, e, widget.education.tables)
+      )
+    );
   }
 
   @override

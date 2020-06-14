@@ -44,7 +44,7 @@ class StatsViewState extends State<StatsView> {
       c,
       widget.nextRoute,
       arguments: Tuple2<Character, Tables>(
-        widget.character.copy(statRolls: stats),
+        widget.character.copy(statRolls: stats, terms: []),
         widget.tables
       )
     );

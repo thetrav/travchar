@@ -8,6 +8,9 @@ class Dice {
 
   List<int> roll(count, sides) =>
     range(count).map((i)=> d(sides)).toList();
+
+  T tableRoll<T>(Map<int, T> table) =>
+    table[r.nextInt(table.length)];
 }
 
 final dice = Dice();

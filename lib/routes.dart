@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:travchar/model/advanced_education.dart';
+import 'package:travchar/views/term/choose_skills.dart';
 import 'package:travchar/views/term_applicaiton_view.dart';
 import 'package:tuple/tuple.dart';
 
 import 'model/Character.dart';
 import 'model/tables.dart';
+import 'model/term.dart';
+import 'model/term_effect_table.dart';
 import 'util.dart';
 import 'views/background_skills_view.dart';
 import 'views/homeworld_view.dart';
@@ -28,5 +31,12 @@ final routes = <String, Widget Function(BuildContext)>{
   "/build/education": (c) => TermEducationView(
     "/build/4",
     arg<Tuple3<AdvancedEducation, Character, Tables>>(c)
-  )
+  ),
+  ChooseSkillsView.route: (c) {
+    return ChooseSkillsView(arg<Tuple3<
+      Character,
+      TermEffect,
+      Map<String, TermEffectTable>
+    >>(c));
+  }
 };

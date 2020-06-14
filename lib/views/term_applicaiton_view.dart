@@ -4,6 +4,7 @@ import 'package:travchar/components/TButton.dart';
 import 'package:travchar/model/Character.dart';
 import 'package:travchar/model/advanced_education.dart';
 import 'package:travchar/model/tables.dart';
+import 'package:travchar/model/term.dart';
 import 'package:tuple/tuple.dart';
 
 import 'stats/stat_table.dart';
@@ -26,13 +27,26 @@ class TermApplicationViewState extends State<TermApplicationView> {
   String education;
   String career;
   String draft;
+  Character get character => widget.character;
 
   void applyForEducation(BuildContext c, AdvancedEducation e) {
-    final admission = e.admission.evaluate(widget.character);
+    final admission = e.admission.evaluate(character);
     if(admission == false) {
       setState((){education = "Failed Enrollment";});
     } else {
-      Navigator.pushReplacementNamed(c, widget.educationRoute, arguments: Tuple3(e, widget.character, widget.tables));
+      bool graduated = e.graduation.evaluate(character);
+      Navigator.pushReplacementNamed(c, widget.educationRoute,
+        arguments: Tuple3(
+          e,
+          widget.character.copy(terms: character.terms + [
+            EducationTerm(education: e,
+              effects: graduated ? e.passEffects : e.failEffects,
+              history: []
+            )
+          ]),
+          widget.tables
+        )
+      );
     }
   }
 
