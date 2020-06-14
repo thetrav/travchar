@@ -25,6 +25,20 @@ class Character {
   Statistic stat(String s) => statRolls[s];
   bool accredited(String a) => accreditations?.contains(a) ?? false;
 
+
+  Map<String, Skill> get specialisations {
+    final specs = <String, Skill>{};
+    skills.values.forEach ((skill) => skill.specialisations.forEach((s)=> specs[s.name] = s));
+    return specs;
+  }
+
+  Skill skill(String name) {
+    if(skills.containsKey(name)) {
+      return skills[name];
+    }
+    return null;
+  }
+
   Character copy({
     String name,
     int age,
@@ -42,7 +56,6 @@ class Character {
       accreditations: accreditations ?? this.accreditations
     );
   }
-
 }
 
 class Statistic {

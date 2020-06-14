@@ -1,32 +1,45 @@
 
 import 'dart:convert';
 
+import '../util.dart';
 import 'Character.dart';
+import 'stat_check.dart';
 
 abstract class Requirement {
   bool evaluate(Character c);
   static Requirement parse(dynamic data) {
     print("parsing requirement ${jsonEncode(data)}");
     return {
+      "automatic": (d) => AutomaticPass(),
       "stat": StatRequirement.parse,
       "homeworld": HomeworldRequirement.parse,
       "skill": SkillRequirement.parse,
       "career": CareerRequirement.parse,
       "accreditation": AccreditationRequirement.parse,
-      "or": OrRequirement.parse
+      "or": OrRequirement.parse,
+      "statCheck": StatCheck.parse,
+      "bestStatCheck": BestStatCheck.parse
     }[data['type'].toString()](data);
   }
 
-
   bool compareNum(int n, String compareString) {
     if (compareString.endsWith("+")) {
-      return n > int.parse(compareString.substring(0, compareString.length - 1));
+      return n >= int.parse(compareString.substring(0, compareString.length - 1));
     }
     if (compareString.endsWith("-")) {
-      return n < int.parse(compareString.substring(0, compareString.length - 1));
+      return n <= int.parse(compareString.substring(0, compareString.length - 1));
     }
     return n == int.parse(compareString);
   }
+
+}
+
+class AutomaticPass extends Requirement {
+  @override
+  bool evaluate(Character c) => true;
+
+  @override
+  String toString() => "Automatic";
 }
 
 class OrRequirement extends Requirement {
@@ -38,6 +51,9 @@ class OrRequirement extends Requirement {
   @override
   bool evaluate(Character c) =>
     options.any((r)=> r.evaluate(c));
+
+  @override
+  String toString() => "one of ${options.join(" or ")}";
 }
 
 class StatRequirement extends Requirement {
@@ -54,6 +70,9 @@ class StatRequirement extends Requirement {
       c.stat(stat).score,
       score
     );
+
+  @override
+  String toString() => "has $stat at $score";
 }
 
 class SkillRequirement extends Requirement {
@@ -67,6 +86,9 @@ class SkillRequirement extends Requirement {
   bool evaluate(Character c) =>
     c.skills.containsKey(skill) &&
     compareNum(c.skills[skill].rank, rank);
+
+  @override
+  String toString() => "Has at $skill at $rank";
 }
 
 class AccreditationRequirement extends Requirement {
@@ -78,6 +100,9 @@ class AccreditationRequirement extends Requirement {
   @override
   bool evaluate(Character c) =>
     c.accredited(code);
+
+  @override
+  String toString() => "Has $code accreditation";
 }
 
 class CareerRequirement extends Requirement {
@@ -91,6 +116,10 @@ class CareerRequirement extends Requirement {
   bool evaluate(Character c) {
     return false;
   }
+
+  @override
+  String toString() => "Has at least rank $rank in $career";
+
 }
 
 abstract class HomeworldRequirement extends Requirement {
@@ -112,6 +141,8 @@ class TradeCodeRequirement extends HomeworldRequirement {
   bool evaluate(Character c) =>
     c.homeworld.trade.contains(code);
 
+  @override
+  String toString() => "Homeworld has tradecode $code";
 }
 
 class GravityRequirement extends HomeworldRequirement {
@@ -126,6 +157,9 @@ class GravityRequirement extends HomeworldRequirement {
   bool evaluate(Character c) {
     return c.homeworld.gravity > min && c.homeworld.gravity < max;
   }
+
+  @override
+  String toString() => "Homeworld Gravity between $min and $max";
 }
 
 class UwpNumRequirement extends HomeworldRequirement {
@@ -139,4 +173,25 @@ class UwpNumRequirement extends HomeworldRequirement {
   bool evaluate(Character c) =>
     compareNum(c.homeworld.uwpByCode(code), num);
 
+  @override
+  String toString() => "Homeworld UWP $code is $num";
+}
+
+class BestStatCheck extends Requirement {
+  final Map<String, int> stats;
+  BestStatCheck(this.stats);
+  static BestStatCheck parse(d) =>
+    BestStatCheck(mapMap(d["stats"], (v)=> v as int));
+
+  @override
+  bool evaluate(Character c) {
+    final best = stats.keys.fold<Statistic>(c.stat(stats.keys.first), (best, s) {
+      final test = c.stat(s);
+      return test.score > best.score ? test : best;
+    });
+    return StatCheck(best.name, stats[best.name]).evaluate(c);
+  }
+
+  @override
+  String toString() => "Check against best of $stats";
 }

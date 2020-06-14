@@ -2,15 +2,59 @@
   {
     "name": "Educational Diploma",
     "requirements": [
-      {"type":  "stat", "stat": "edu", "score": "3-"}
-    ]
+      {"type":  "automatic"}
+    ],
+    "admission": {"type": "automatic"},
+    "graduation": {"type": "bestStatCheck", "stats": {"int": 5,
+      "end": 5}
+    },
+    "pass_effects": [
+      {"type": "yearsPass", "years": 2},
+      {"type": "chooseSkills", "level": 0, "picks": 3, "tables":  ["personalDevelopmentA", "personalDevelopmentB"]},
+      {"type": "chooseBenefit", "options": [
+        {"type":  "rolledBenefit", "table": "personalDevelopmentA"},
+        {"type": "rolledBenefit", "table": "personalDevelopmentB"}
+      ]},
+      {"type": "statRasiedTo", "stat": "edu", "score":  4},
+      {"type":  "certification", "code":  "ED4"}
+    ],
+    "fail_effects": [
+      {"type": "yearsPass", "years": 2},
+      {"type": "chooseBenefit", "options": [
+        {"type": "rolledBenefit", "table": "personalDevelopmentA"},
+        {"type": "rolledBenefit", "table": "personalDevelopmentB"}
+      ]}
+    ],
+    "tables": {
+      "personalDevelopmentA": {
+        "1": {"type": "skillGain", "skill":  "Admin", "amount": 1},
+        "2": {"type": "specialisationGain", "skill":  "Art", "specialisation": "Writing", "amount": 1},
+        "3": {"type": "skillGain", "skill":  "Computers", "amount": 1},
+        "4": {"type": "skillGain", "skill":  "Jack of All Trades", "amount": 1},
+        "5": {"type": "skillGain", "skill":  "Persuade", "amount": 1},
+        "6": {"type": "skillGain", "skill":  "Mechanic", "amount": 1}
+      },
+      "personalDevelopmentB": {
+        "1": {"type": "skillGain", "skill":  "Steward", "amount": 1},
+        "2": {"type": "skillGain", "skill":  "Language", "amount": 1},
+        "3": {"type": "skillGain", "skill":  "Carouse", "amount": 1},
+        "4": {"type": "skillGain", "skill":  "Comms", "amount": 1},
+        "5": {"type": "skillGain", "skill":  "Computers", "amount": 1},
+        "6": {"type": "statGain", "stat":  "edu", "amount": 1}
+      }
+    }
   },
   {
     "name": "University",
     "requirements": [
       {"type": "stat", "stat": "int", "score": "8+"},
       {"type": "stat", "stat": "edu", "score": "5+"}
-    ]
+    ],
+    "admission": {"type": "statCheck", "stat": "int", "target": 7},
+    "graduation": {"type": "statCheck", "stat": "int", "target": 7},
+    "pass_effects": [],
+    "fail_effects": [],
+    "tables": {}
   },
   {
     "name": "Merchant Academy",
@@ -19,7 +63,12 @@
       {"type": "homeworld", "subType": "uwpNum",
         "code": "Starport", "num": "10+"
       }
-    ]
+    ],
+    "admission": {"type": "statCheck", "stat": "int", "target": 7},
+    "graduation": {"type": "statCheck", "stat": "int", "target": 7},
+    "pass_effects": [],
+    "fail_effects": [],
+    "tables": {}
   },
   {
     "name": "Military Academy",
@@ -28,7 +77,12 @@
       {"type": "stat", "stat": "int", "score": "8+"},
       {"type": "stat", "stat": "edu", "score": "5+"},
       {"type": "stat", "stat": "soc", "score": "8+"}
-    ]
+    ],
+    "admission": {"type": "statCheck", "stat": "int", "target": 9},
+    "graduation": {"type": "statCheck", "stat": "end", "target": 7},
+    "pass_effects": [],
+    "fail_effects": [],
+    "tables": {}
   },
   {
     "name": "Naval Academy",
@@ -37,13 +91,23 @@
       {"type": "stat", "stat": "int", "score": "9+"},
       {"type": "stat", "stat": "edu", "score": "5+"},
       {"type": "stat", "stat": "soc", "score": "8+"}
-    ]
+    ],
+    "admission": {"type": "statCheck", "stat": "int", "target": 9},
+    "graduation": {"type": "statCheck", "stat": "end", "target": 7},
+    "pass_effects": [],
+    "fail_effects": [],
+    "tables": {}
   },
   {
     "name": "OTC/NOTC",
     "requirements": [
       {"type": "stat", "stat": "soc", "score": "4+"}
-    ]
+    ],
+    "admission": {"type": "statCheck", "stat": "end", "target": 7},
+    "graduation": {"type": "automatic"},
+    "pass_effects": [],
+    "fail_effects": [],
+    "tables": {}
   },
   {
     "name": "Grad School (Masters)",
@@ -54,7 +118,12 @@
           {"type": "career", "name": "Scholar", "rank": "3+"}
         ]
       }
-    ]
+    ],
+    "admission": {"type": "statCheck", "stat": "int", "target": 7},
+    "graduation": {"type": "statCheck", "stat": "end", "target": 7},
+    "pass_effects": [],
+    "fail_effects": [],
+    "tables": {}
   },
   {
     "name": "Grad School (PhD)",
@@ -65,7 +134,12 @@
           {"type": "career", "name": "Scholar", "rank": "3+"}
         ]
       }
-    ]
+    ],
+    "admission": {"type": "statCheck", "stat": "int", "target": 7},
+    "graduation": {"type": "statCheck", "stat": "end", "target": 7},
+    "pass_effects": [],
+    "fail_effects": [],
+    "tables": {}
   },
   {
     "name": "Medical School",
@@ -79,13 +153,23 @@
       },
       {"type": "skill", "name": "Medic", "rank": "0+"},
       {"type": "skill", "name": "Life Science", "rank": "0+"}
-    ]
+    ],
+    "admission": {"type": "statCheck", "stat": "int", "target": 8},
+    "graduation": {"type": "statCheck", "stat": "end", "target": 8},
+    "pass_effects": [],
+    "fail_effects": [],
+    "tables": {}
   },
   {
     "name": "Technical Institute",
     "requirements": [
       {"type": "stat", "stat": "int", "score": "9+"},
       {"type": "stat", "stat": "edu", "score": "4+"}
-    ]
+    ],
+    "admission": {"type": "statCheck", "stat": "int", "target": 7},
+    "graduation": {"type": "statCheck", "stat": "int", "target": 7},
+    "pass_effects": [],
+    "fail_effects": [],
+    "tables": {}
   }
 ]

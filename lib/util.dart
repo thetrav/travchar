@@ -14,3 +14,6 @@ T arg<T>(BuildContext c) =>
   ModalRoute.of(c).settings.arguments as T;
 
 List<String> stringList(d) => d.map<String>((e)=> e.toString()).toList();
+
+List<T> parseList<T>(d, String key, T Function(dynamic) mapper) =>
+  d[key].map<T>(mapper).toList();

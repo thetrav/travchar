@@ -52,7 +52,7 @@ class HomeworldViewState extends State<HomeworldLoadedView> {
   }
 
   void randomHomeworld(BuildContext c) =>
-    select(homeworlds[dice.roll(1,homeworlds.length).first], c);
+    select(homeworlds[dice.roll(1,homeworlds.length).first-1], c);
 
   Widget listTile(Homeworld h, BuildContext c) =>
     ListTile(
