@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:travchar/model/advanced_education.dart';
-import 'package:travchar/views/term/choose_skills.dart';
+import 'package:travchar/views/term/choose_effect.dart';
 import 'package:travchar/views/term_applicaiton_view.dart';
 import 'package:tuple/tuple.dart';
 
@@ -32,11 +32,10 @@ final routes = <String, Widget Function(BuildContext)>{
     "/build/4",
     arg<Tuple3<AdvancedEducation, Character, Tables>>(c)
   ),
-  ChooseSkillsView.route: (c) {
-    return ChooseSkillsView(arg<Tuple3<
+  ChooseEffectView.route: (c) {
+    return ChooseEffectView(arg<Tuple2<
       Character,
-      TermEffect,
-      Map<String, TermEffectTable>
+      TermEffect
     >>(c));
   }
 };

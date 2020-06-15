@@ -15,7 +15,6 @@ class TermEffectTable {
     raw.keys.forEach((key) {
       final i = int.parse(key);
       final v = TermEffect.parse(raw[key]);
-      print("got $v from ${raw[key]}");
       table[i] = v;
     });
     return table;
@@ -25,6 +24,7 @@ class TermEffectTable {
     Map<String, dynamic> raw) {
     final tables = <String, TermEffectTable>{};
     raw.keys.forEach((tableName) {
+      print("parsing table: $tableName");
       tables[tableName] = TermEffectTable(
         tableName,
         mapTable(raw[tableName])

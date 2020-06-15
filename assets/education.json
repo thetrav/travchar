@@ -10,7 +10,18 @@
     },
     "pass_effects": [
       {"type": "yearsPass", "years": 2},
-      {"type": "chooseSkills", "level": 0, "picks": 3, "tables":  ["personalDevelopmentA", "personalDevelopmentB"]},
+      {"type": "chooseBenefit", "picks": 3, "options":  [
+        {"type": "skillRaisedTo", "skill": "Admin", "rank": 0},
+        {"type": "skillRaisedTo", "skill": "Computers", "rank": 0},
+        {"type": "skillRaisedTo", "skill": "Jack of All Trades", "rank": 0},
+        {"type": "skillRaisedTo", "skill": "Persuade", "rank": 0},
+        {"type": "skillRaisedTo", "skill": "Mechanic", "rank": 0},
+        {"type": "skillRaisedTo", "skill": "Steward", "rank": 0},
+        {"type": "skillRaisedTo", "skill": "Language", "rank": 0},
+        {"type": "skillRaisedTo", "skill": "Carouse", "rank": 0},
+        {"type": "skillRaisedTo", "skill": "Comms", "rank": 0},
+        {"type": "skillRaisedTo", "skill": "Computers", "rank": 0}
+      ]},
       {"type": "chooseBenefit", "options": [
         {"type":  "rolledBenefit", "table": "personalDevelopmentA"},
         {"type": "rolledBenefit", "table": "personalDevelopmentB"}
