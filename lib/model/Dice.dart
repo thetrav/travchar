@@ -3,6 +3,9 @@ import 'dart:math';
 import 'package:travchar/util.dart';
 
 class Dice {
+  Dice() {
+    print("new random seed!");
+  }
   final r = Random();
   int d(int sides) => r.nextInt(sides)+1;
 

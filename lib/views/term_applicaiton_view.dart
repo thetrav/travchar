@@ -58,21 +58,24 @@ class TermApplicationViewState extends State<TermApplicationView> {
   @override
   Widget build(BuildContext context) =>
     SingleChildScrollView(child:
-      Row(children: [
-        Expanded(child: CharacterView(widget.character)),
-        Expanded(child: Column(
-          children: [
-            Text("Enroll in"),
-            ...educations(context),
-            Text("or"),
-            TButton("Career", (){}),
-            Text("or"),
-            TButton("Draft", (){}),
-            Text("or"),
-            TButton("Drifter", (){}),
-          ]
-        ))
-      ])
+      Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(child: CharacterView(widget.character)),
+          Expanded(child: Column(
+            children: [
+              Text("Enroll in"),
+              ...educations(context),
+              Text("or"),
+              TButton("Career", (){}),
+              Text("or"),
+              TButton("Draft", (){}),
+              Text("or"),
+              TButton("Drifter", (){}),
+            ]
+          ))
+        ]
+      )
     );
 
 }

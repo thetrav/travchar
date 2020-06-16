@@ -248,7 +248,7 @@ class ChooseBenefit extends TermEffect {
   String get route => type;
 
   @override
-  TermEffect copy() => ChooseBenefit(options, picks);
+  TermEffect copy() => ChooseBenefit(options.map((e) => e.copy()).toList(), picks);
 }
 
 class SkillRaisedTo extends TermEffect {
