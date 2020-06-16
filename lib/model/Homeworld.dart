@@ -1,17 +1,15 @@
 import 'dart:convert';
 
-import 'package:travchar/model/Character.dart';
-
 class Homeworld {
-  String region;
-  String name;
-  String uwp;
-  double gravity;
-  List<String> trade;
-  int str;
-  int end;
-  int dex;
-  int edu;
+  final String region;
+  final String name;
+  final String uwp;
+  final double gravity;
+  final List<String> tradeCodes;
+  final int str;
+  final int end;
+  final int dex;
+  final int edu;
 
   String uwpCode(int index) => uwp.substring(index, index+1);
   int uwpNumber(int index) => int.parse("0x${uwpCode(index)}");
@@ -37,22 +35,15 @@ class Homeworld {
   }[code]);
 
 
-  Homeworld({this.region, this.name, this.uwp, this.gravity, this.trade,
+  Homeworld({this.region, this.name, this.uwp, this.gravity, this.tradeCodes,
     this.str, this.end, this.dex, this.edu});
 
-  Map<String, StatAdjustment> get statAdjustments {
-    final mods = <String, StatAdjustment>{};
-    void apply(String s, int v) {
-      if(v != 0) {
-        mods[s] = StatAdjustment(v, "Homeworld");
-      }
-    }
-    apply("str", this.str);
-    apply("dex", this.dex);
-    apply("end", this.end);
-    apply("edu", this.edu);
-    return mods;
-  }
+  Map<String, int> get statAdjustments => {
+    "str": this.str,
+    "dex": this.dex,
+    "end": this.end,
+    "edu": this.edu
+  };
 
   static List<Homeworld>load(String value) {
     final List<dynamic> rows = jsonDecode(value);
@@ -64,7 +55,7 @@ class Homeworld {
     name: map[1],
     uwp: map[2],
     gravity: map[3],
-    trade: map[4].split(" "),
+    tradeCodes: map[4].split(" "),
     str: map[5],
     end: map[6],
     dex: map[7],

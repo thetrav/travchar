@@ -25,8 +25,10 @@ class StatsViewState extends State<StatsView> {
   Map<String, Statistic> stats;
   bool adjusted;
 
-  Statistic roll(String s) =>
-    Statistic(name: s, roll: dice.roll(2,6));
+  Statistic roll(String s) {
+    final diceRoll = dice.roll(2, 6);
+    return Statistic(name: s, roll: diceRoll, score: sum(diceRoll));
+  }
 
   @override
   void initState() {
@@ -37,14 +39,20 @@ class StatsViewState extends State<StatsView> {
 
   void done(BuildContext c) {
     final mods = widget.character.homeworld.statAdjustments;
-    mods.forEach((key, value) {
-      stats[key].adjustments.add(value);
-    });
+    final newStats = mapMap(stats, (Statistic stat) =>
+      stat.copy(
+        score: stat.score + (mods[stat.name] ?? 0)
+      )
+    );
+    final character = widget.character.copy(
+      stats: newStats,
+      terms: []
+    );
     Navigator.pushReplacementNamed(
       c,
       widget.nextRoute,
       arguments: Tuple2<Character, Tables>(
-        widget.character.copy(statRolls: stats, terms: []),
+        character,
         widget.tables
       )
     );
@@ -62,7 +70,7 @@ class StatsViewState extends State<StatsView> {
     while(totalStatValue < 35) {
       final l = allStats;
       l.sort((a, b)=> a.score.compareTo(b.score));
-      l.first.adjustments.add(StatAdjustment(1, "totalscore < 35"));
+      l.first.score += 1;
     }
   }
 
@@ -71,11 +79,10 @@ class StatsViewState extends State<StatsView> {
   num get totalStatValue => sum(allStats.map((s) => s.score).toList());
 
   void swapStat(String a, String b) {
-    final stat1 = stats[a];
-    final stat2 = stats[b];
-    final difference = stat1.score - stat2.score;
-    stat1.adjustments.add(StatAdjustment(-difference, "Characte Gen Stat Swap"));
-    stat2.adjustments.add(StatAdjustment(difference, "Character Gen Stat Swap"));
+    final scoreA = stats[a].score;
+    final scoreB = stats[b].score;
+    stats[a].score = scoreB;
+    stats[b].score = scoreA;
   }
 
   void swapStats(String a1, String b1, String a2, String b2) {
@@ -91,10 +98,7 @@ class StatsViewState extends State<StatsView> {
   }
 
   void shiftStat(String s, int amount) =>
-    stats[s].adjustments.add(StatAdjustment(
-      amount,
-      "Character Gen Stat Shift"
-    ));
+    stats[s].score += amount;
 
   void shiftStats(String a1, int amount1, String b1,
                   String a2, int amount2, String b2) {
@@ -114,13 +118,10 @@ class StatsViewState extends State<StatsView> {
   void rerollStat(String s) {
     setState((){
       if(s != null) {
-        final newRoll = min(6, sum(dice.roll(2, 6)));
-        final difference = stats[s].score - newRoll;
-        stats[s].adjustments.add(StatAdjustment(
-          -difference,
-          "Character Gen Re Roll"));
+        final newRoll = dice.roll(2, 6);
+        stats[s] = stats[s].copy(roll: newRoll, score: min(6, sum(newRoll)));
+        adjusted = true;
       }
-      adjusted = true;
     });
   }
 

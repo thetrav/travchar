@@ -42,6 +42,8 @@ abstract class TermEffect {
     }[d["type"]](d);
   }
   String get route;
+
+  TermEffect copy();
 }
 
 class YearsPass extends TermEffect {
@@ -56,6 +58,7 @@ class YearsPass extends TermEffect {
   @override
   String toString() => "$years years pass";
   String get route => type;
+  TermEffect copy() => this;
 }
 
 class RolledBenefit extends TermEffect {
@@ -83,6 +86,9 @@ class RolledBenefit extends TermEffect {
     "roll on $table table" :
     "rolled: $roll on $table";
   String get route => type;
+
+  @override
+  TermEffect copy() => RolledBenefit(table);
 }
 
 class StatGainBenefit extends TermEffect {
@@ -95,21 +101,21 @@ class StatGainBenefit extends TermEffect {
 
   @override
   Character apply(Character c, Map<String, TermEffectTable> tables) {
-    c
-      .stat(stat)
-      .adjustments
-      .add(
-      StatAdjustment(amount, "Stat Gain Benefit")
-    );
-    return c;
-  }
+    final newStats = mapMap(c.stats, (Statistic stat) => stat.name == this.stat ? stat.copy(
+      score: stat.score + amount
+    ): stat);
 
+    return c.copy(
+      stats: newStats
+    );
+  }
 
   @override
   bool get hasChoice => false;
   @override
   String toString() => "Adjust $stat by $amount";
   String get route => type;
+  TermEffect copy() => this;
 }
 
 class SkillGainBenefit extends TermEffect {
@@ -128,22 +134,22 @@ class SkillGainBenefit extends TermEffect {
   bool get hasChoice => false;
   @override
   Character apply(Character c, Map<String, TermEffectTable> tables) {
-    Skill oldSkill = c.skill(skill);
-    if(oldSkill == null) {
-      print("adding skill: $skill at rank 0");
-      c.skills[skill] = Skill(name:skill, rank: 0);
-    } else {
-      print("increasing $skill rank by $amount");
-      oldSkill.rank += amount;
-    }
-    return c;
+    Map<String, Skill> newSkills = (c.skill(skill) == null) ?
+      {...c.skills, skill: Skill(name:skill, rank: 0)} :
+      mapMap(c.skills, (Skill skill) =>
+        skill.name == this.skill ?
+          skill.copy(rank: skill.rank + amount) :
+          skill
+      );
+
+    return c.copy(skills: newSkills);
   }
 
   @override
   String toString() => "Adjust $skill by $amount";
   String get route => type;
+  TermEffect copy() => this;
 }
-
 
 class SpecialisationGainBenefit extends TermEffect {
   static String type = "specialisationGain";
@@ -156,12 +162,7 @@ class SpecialisationGainBenefit extends TermEffect {
 
   @override
   Character apply(Character c, Map<String, TermEffectTable> tables) {
-    Skill oldSkill = c.skill(skill);
-    if(oldSkill == null) {
-      c.skills[skill] = Skill(name:skill, rank: 0);
-    } else {
-      oldSkill.rank += amount;
-    }
+    print("TODO! Fix specialisations!");
     return c;
   }
 
@@ -170,6 +171,7 @@ class SpecialisationGainBenefit extends TermEffect {
   @override
   String toString() => "Adjust $skill ($specialisation) by $amount";
   String get route => type;
+  TermEffect copy() => this;
 }
 
 class StatRaisedTo extends TermEffect {
@@ -187,9 +189,10 @@ class StatRaisedTo extends TermEffect {
   Character apply(Character c, Map<String, TermEffectTable> tables) {
     final s = c.stat(stat);
     if(s.score < score) {
-      s.adjustments.add(StatAdjustment(
-        score - s.score,
-        "Stat Raised Term Effect"
+      return c.copy(stats: mapMap(c.stats, (stat)=>
+        stat.name == this.stat ?
+          stat.copy(score: this.score - stat.score) :
+          stat
       ));
     }
     return c;
@@ -200,6 +203,7 @@ class StatRaisedTo extends TermEffect {
   @override
   String toString() => "raise $stat to $score";
   String get route => type;
+  TermEffect copy() => this;
 }
 
 class Certification extends TermEffect {
@@ -218,6 +222,7 @@ class Certification extends TermEffect {
   @override
   String toString() => "gain $code certification";
   String get route => type;
+  TermEffect copy() => this;
 }
 
 class ChooseBenefit extends TermEffect {
@@ -241,6 +246,9 @@ class ChooseBenefit extends TermEffect {
     "Choose from multiple benefits" :
     "${choice.join(", ")}";
   String get route => type;
+
+  @override
+  TermEffect copy() => ChooseBenefit(options, picks);
 }
 
 class SkillRaisedTo extends TermEffect {
@@ -256,13 +264,14 @@ class SkillRaisedTo extends TermEffect {
 
   @override
   Character apply(Character c, Map<String, TermEffectTable> tables) {
-    final s = c.skill(skill);
-    if(s == null) {
-      c.skills[skill] = Skill(name: skill, rank: rank);
-    } else if(s.rank < rank) {
-      s.rank = rank;
-    }
-    return c;
+    final newSkills =
+      (c.skill(skill) == null) ?
+        {...c.skills, skill: Skill(name: skill, rank: rank)} :
+        mapMap(c.skills, (skill) => skill.name == this.skill ?
+          skill.copy(rank: rank) :
+          skill
+        );
+    return c.copy(skills: newSkills);
   }
 
   @override
@@ -270,4 +279,5 @@ class SkillRaisedTo extends TermEffect {
   @override
   String toString() => "raise $skill to $rank";
   String get route => type;
+  TermEffect copy() => this;
 }

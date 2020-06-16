@@ -21,6 +21,13 @@ class Skill {
   }
 
   Skill({this.name, this.rank, this.parent, this.specialisations});
+  Skill copy({String name, int rank, Skill parent, List<Skill>specialisations})
+    => Skill(
+      name: name ?? this.name,
+      rank: rank ?? this.rank,
+      parent: parent ?? this.parent,
+      specialisations: specialisations ?? this.specialisations
+    );
 
   @override
   String toString() {

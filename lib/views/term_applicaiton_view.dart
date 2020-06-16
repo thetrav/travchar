@@ -35,7 +35,7 @@ class TermApplicationViewState extends State<TermApplicationView> {
       setState((){education = "Failed Enrollment";});
     } else {
       Navigator.pushReplacementNamed(c, widget.educationRoute,
-        arguments: Tuple3(e, widget.character, widget.tables)
+        arguments: Tuple3(e.copy(), widget.character, widget.tables)
       );
     }
   }
@@ -57,19 +57,22 @@ class TermApplicationViewState extends State<TermApplicationView> {
 
   @override
   Widget build(BuildContext context) =>
-    Row(children: [
-      Expanded(child: CharacterView(widget.character)),
-      Expanded(child: Column(
-        children: [
-          Text("Enroll in"),
-          ...educations(context),
-          Text("or"),
-          TButton("Career", (){}),
-          Text("or"),
-          TButton("Draft", (){}),
-          Text("or"),
-          TButton("Drifter", (){}),
-        ]
-      ))
-    ]);
+    SingleChildScrollView(child:
+      Row(children: [
+        Expanded(child: CharacterView(widget.character)),
+        Expanded(child: Column(
+          children: [
+            Text("Enroll in"),
+            ...educations(context),
+            Text("or"),
+            TButton("Career", (){}),
+            Text("or"),
+            TButton("Draft", (){}),
+            Text("or"),
+            TButton("Drifter", (){}),
+          ]
+        ))
+      ])
+    );
+
 }

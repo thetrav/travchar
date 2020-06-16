@@ -20,7 +20,7 @@ class CharacterView extends StatelessWidget {
       Text(character.name),
       Text("From ${character.homeworld.name}"),
       Text("${character.age} Years Old"),
-      StatTable(character.statRolls),
+      StatTable(character.stats),
     ];
     if(character.skills != null) {
       children.add(SkillListView(character.skills.values.toList()));

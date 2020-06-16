@@ -42,4 +42,14 @@ class AdvancedEducation {
 
   static List<AdvancedEducation> load(String source) =>
     jsonDecode(source).map<AdvancedEducation>(AdvancedEducation.parse).toList();
+
+  AdvancedEducation copy() => AdvancedEducation(
+    name: name,
+    requirements: requirements,
+    admission: admission,
+    graduation: graduation,
+    passEffects: passEffects.map((e)=> e.copy()).toList(),
+    failEffects: failEffects.map((e)=> e.copy()).toList(),
+    tables: tables
+  );
 }

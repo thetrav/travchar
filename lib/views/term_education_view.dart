@@ -32,6 +32,18 @@ class TermEducationViewState extends State<TermEducationView> {
   @override
   void initState() {
     super.initState();
+    newState();
+  }
+
+  @override
+  void didUpdateWidget(TermEducationView oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if(oldWidget.education != widget.education) {
+      setState(()=>newState());
+    }
+  }
+
+  void newState() {
     final education = widget.education;
     graduated = education.graduation.evaluate(widget.character);
     history = <String>[];

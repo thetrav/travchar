@@ -58,7 +58,7 @@ class HomeworldViewState extends State<HomeworldLoadedView> {
     ListTile(
       leading: Text(h.region),
       title: Text(h.name),
-      subtitle: Text("UWP: ${h.uwp} Trades: ${h.trade.join(",")}"),
+      subtitle: Text("UWP: ${h.uwp} Trades: ${h.tradeCodes.join(",")}"),
       onTap: () => select(h, c)
     );
 

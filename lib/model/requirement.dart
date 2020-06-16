@@ -139,7 +139,7 @@ class TradeCodeRequirement extends HomeworldRequirement {
 
   @override
   bool evaluate(Character c) =>
-    c.homeworld.trade.contains(code);
+    c.homeworld.tradeCodes.contains(code);
 
   @override
   String toString() => "Homeworld has tradecode $code";

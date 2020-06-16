@@ -3,7 +3,6 @@
 import 'package:travchar/model/skill.dart';
 import 'package:travchar/model/term.dart';
 
-import '../util.dart';
 import 'Homeworld.dart';
 
 
@@ -12,7 +11,7 @@ class Character {
   String name;
   int age;
   Homeworld homeworld;
-  Map<String, Statistic> statRolls;
+  Map<String, Statistic> stats;
   Map<String, Skill> skills;
   List<String> accreditations;
   List<Term> terms;
@@ -21,15 +20,14 @@ class Character {
     this.name,
     this.age,
     this.homeworld,
-    this.statRolls,
+    this.stats,
     this.skills,
     this.accreditations,
     this.terms
   });
 
-  Statistic stat(String s) => statRolls[s];
+  Statistic stat(String s) => stats[s];
   bool accredited(String a) => accreditations?.contains(a) ?? false;
-
 
   Map<String, Skill> get specialisations {
     final specs = <String, Skill>{};
@@ -48,7 +46,7 @@ class Character {
     String name,
     int age,
     Homeworld homeworld,
-    Map<String, Statistic> statRolls,
+    Map<String, Statistic> stats,
     Map<String, Skill> skills,
     List<String> accreditations,
     List<Term> terms
@@ -57,7 +55,7 @@ class Character {
       name: name ?? this.name,
       age: age ?? this.age,
       homeworld: homeworld ?? this.homeworld,
-      statRolls: statRolls ?? this.statRolls,
+      stats: stats ?? this.stats,
       skills: skills ?? this.skills,
       accreditations: accreditations ?? this.accreditations,
       terms: terms ?? this.terms
@@ -68,25 +66,18 @@ class Character {
 class Statistic {
   String name;
   List<int> roll = [];
-  List<StatAdjustment> adjustments;
-  int get adjustmentScore => sum(adjustments.map((a)=> a.value)?.toList());
-  int get score => sum(roll) + adjustmentScore;
+  int score;
   int get diceMod {
     if(score == 0) return -3;
     if(score >= 15) return 3;
     return (score/3-2).floor();
   }
 
-  Statistic({this.name, this.roll, this.adjustments}){
-    if(adjustments == null) {
-      adjustments = [];
-    }
-  }
-}
-
-class StatAdjustment {
-  String note;
-  int value;
-
-  StatAdjustment(this.value, this.note);
+  Statistic({this.name, this.roll, this.score});
+  Statistic copy({String name, List<int> roll, int score}) =>
+    Statistic(
+      name: name ?? this.name,
+      roll: roll ?? this.roll,
+      score: score ?? this.score
+    );
 }
