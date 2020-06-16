@@ -4,12 +4,12 @@ import 'package:travchar/components/TButton.dart';
 import 'package:travchar/model/Character.dart';
 import 'package:travchar/model/advanced_education.dart';
 import 'package:travchar/model/tables.dart';
-import 'package:travchar/model/term.dart';
 import 'package:tuple/tuple.dart';
 
-import 'stats/stat_table.dart';
+import 'character_view.dart';
 
 class TermApplicationView extends StatefulWidget {
+  static String route = "/termApplication";
   final Character character;
   final Tables tables;
 
@@ -34,18 +34,8 @@ class TermApplicationViewState extends State<TermApplicationView> {
     if(admission == false) {
       setState((){education = "Failed Enrollment";});
     } else {
-      bool graduated = e.graduation.evaluate(character);
       Navigator.pushReplacementNamed(c, widget.educationRoute,
-        arguments: Tuple3(
-          e,
-          widget.character.copy(terms: character.terms + [
-            EducationTerm(education: e,
-              effects: graduated ? e.passEffects : e.failEffects,
-              history: []
-            )
-          ]),
-          widget.tables
-        )
+        arguments: Tuple3(e, widget.character, widget.tables)
       );
     }
   }
@@ -66,17 +56,20 @@ class TermApplicationViewState extends State<TermApplicationView> {
 
 
   @override
-  Widget build(BuildContext context) => Column(
-    children: [
-      StatTable(widget.character.statRolls),
-      Text("Enroll in"),
-      ...educations(context),
-      Text("or"),
-      TButton("Career", (){}),
-      Text("or"),
-      TButton("Draft", (){}),
-      Text("or"),
-      TButton("Drifter", (){}),
-    ]
-  );
+  Widget build(BuildContext context) =>
+    Row(children: [
+      Expanded(child: CharacterView(widget.character)),
+      Expanded(child: Column(
+        children: [
+          Text("Enroll in"),
+          ...educations(context),
+          Text("or"),
+          TButton("Career", (){}),
+          Text("or"),
+          TButton("Draft", (){}),
+          Text("or"),
+          TButton("Drifter", (){}),
+        ]
+      ))
+    ]);
 }

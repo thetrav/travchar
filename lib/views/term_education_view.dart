@@ -1,6 +1,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:travchar/components/TButton.dart';
 import 'package:travchar/model/Character.dart';
 import 'package:travchar/model/advanced_education.dart';
 import 'package:travchar/model/tables.dart';
@@ -13,6 +14,8 @@ class TermEducationView extends StatefulWidget {
   final Character character;
   final Tables tables;
 
+  static String route = "/termEducation";
+
   TermEducationView(this.nextRoute, Tuple3<AdvancedEducation, Character, Tables> t):
     education = t.item1, character = t.item2, tables = t.item3;
 
@@ -22,7 +25,7 @@ class TermEducationView extends StatefulWidget {
 
 class TermEducationViewState extends State<TermEducationView> {
   bool graduated;
-  List<Widget> history;
+  List<String> history;
   List<TermEffect> effects;
   Character character;
 
@@ -31,7 +34,7 @@ class TermEducationViewState extends State<TermEducationView> {
     super.initState();
     final education = widget.education;
     graduated = education.graduation.evaluate(widget.character);
-    history = <Widget>[];
+    history = <String>[];
     character = widget.character;
     effects = (graduated ? education.passEffects : education.failEffects)
       .where((e)=> e.qualifies(character)).toList();
@@ -47,12 +50,7 @@ class TermEducationViewState extends State<TermEducationView> {
         setState(() {
           character = result.apply(character, widget.education.tables);
           effects.remove(e);
-          history.add(
-            ListTile(
-              leading: Icon(Icons.done, color: Colors.green),
-              title: Text("applied $e")
-            )
-          );
+          history.add("applied $e");
         });
       }
     });
@@ -66,12 +64,31 @@ class TermEducationViewState extends State<TermEducationView> {
     );
   }
 
+  void done(BuildContext context) {
+    Navigator.pushReplacementNamed(context, widget.nextRoute, arguments: Tuple2(
+      character.copy(terms: character.terms + [
+        EducationTerm(widget.education, history)
+      ]), widget.tables
+    ));
+  }
+
+  Widget historyTile(history) => ListTile(
+    leading: Icon(Icons.done, color: Colors.green),
+    title: Text(history)
+  );
+
   @override
-  Widget build(BuildContext context) => Column(children: [
-    Text(graduated ? "You graduated, congratulations!" : "You failed, how disappointing"),
-    Expanded(child: ListView(
-      children: history +
-        effects.map((e) => effectTile(context, e)).toList()
-    ))
-  ]);
+  Widget build(BuildContext context) {
+    final children = [
+      Text(graduated ? "You graduated, congratulations!" : "You failed, how disappointing"),
+      Expanded(child: ListView(
+        children: history.map(historyTile).toList() +
+          effects.map((e) => effectTile(context, e)).toList()
+      ))
+    ];
+    if(effects.isEmpty) {
+      children.add(TButton("Done", () => done(context)));
+    }
+    return Column(children: children);
+  }
 }

@@ -7,19 +7,20 @@ import '../util.dart';
 import 'term_effect_table.dart';
 
 abstract class Term {
-  final List<TermEffect> effects;
   final List<String> history;
+  String get name;
   Map<String, TermEffectTable> get tables;
   String get route;
-  Term(this.effects, this.history);
+  Term(this.history);
 }
 
 class EducationTerm extends Term {
   String get route => "/term/education";
+  String get name => education.name;
   AdvancedEducation education;
   Map<String, TermEffectTable> get tables => education.tables;
-  EducationTerm({this.education, List<TermEffect> effects, List<String> history}):
-    super(effects, history);
+  EducationTerm(this.education, List<String> history):
+    super(history);
 }
 
 abstract class TermEffect {
@@ -129,8 +130,10 @@ class SkillGainBenefit extends TermEffect {
   Character apply(Character c, Map<String, TermEffectTable> tables) {
     Skill oldSkill = c.skill(skill);
     if(oldSkill == null) {
+      print("adding skill: $skill at rank 0");
       c.skills[skill] = Skill(name:skill, rank: 0);
     } else {
+      print("increasing $skill rank by $amount");
       oldSkill.rank += amount;
     }
     return c;

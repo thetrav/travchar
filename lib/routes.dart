@@ -7,7 +7,6 @@ import 'package:tuple/tuple.dart';
 import 'model/Character.dart';
 import 'model/tables.dart';
 import 'model/term.dart';
-import 'model/term_effect_table.dart';
 import 'util.dart';
 import 'views/background_skills_view.dart';
 import 'views/homeworld_view.dart';
@@ -22,14 +21,14 @@ final routes = <String, Widget Function(BuildContext)>{
   "/": (c) => NameView("/build/1"),
   "/build/1": (c) => HomeworldView("/build/2", arg<Character>(c)),
   "/build/2": (c) => StatsView("/build/3", cargs(c)),
-  "/build/3": (c) => BackgroundSkillsView("/build/4", cargs(c)),
-  "/build/4": (c) => TermApplicationView(
-    educationRoute: "/build/education",
+  "/build/3": (c) => BackgroundSkillsView(TermApplicationView.route, cargs(c)),
+  TermApplicationView.route: (c) => TermApplicationView(
+    educationRoute: TermEducationView.route,
     careerRoute: "/build/career",
     t: cargs(c)
   ),
-  "/build/education": (c) => TermEducationView(
-    "/build/4",
+  TermEducationView.route: (c) => TermEducationView(
+    TermApplicationView.route,
     arg<Tuple3<AdvancedEducation, Character, Tables>>(c)
   ),
   ChooseEffectView.route: (c) {

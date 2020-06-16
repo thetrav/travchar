@@ -6,6 +6,8 @@ import 'package:travchar/model/term.dart';
 import '../util.dart';
 import 'Homeworld.dart';
 
+
+
 class Character {
   String name;
   int age;
