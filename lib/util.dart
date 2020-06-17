@@ -16,4 +16,7 @@ T arg<T>(BuildContext c) =>
 List<String> stringList(d) => d.map<String>((e)=> e.toString()).toList();
 
 List<T> parseList<T>(d, String key, T Function(dynamic) mapper) =>
-  d[key].map<T>(mapper).toList();
+  d[key]?.map<T>(mapper)?.toList();
+
+void eachWithIndex<T>(List<T> l, Function(int, T) f) =>
+  l.asMap().forEach((index, value) => f(index, value));

@@ -4,6 +4,7 @@ import 'package:travchar/model/advanced_education.dart';
 import 'package:travchar/model/skill.dart';
 
 import '../util.dart';
+import 'choose_term_benefit.dart';
 import 'term_effect_table.dart';
 
 abstract class Term {
@@ -223,32 +224,6 @@ class Certification extends TermEffect {
   String toString() => "gain $code certification";
   String get route => type;
   TermEffect copy() => this;
-}
-
-class ChooseBenefit extends TermEffect {
-  static String type = "chooseBenefit";
-  final List<TermEffect> options;
-  final int picks;
-  ChooseBenefit(this.options, this.picks);
-  List<TermEffect> choice;
-
-  static ChooseBenefit parse(d) =>
-    ChooseBenefit(parseList(d, "options", TermEffect.parse), d['picks']?? 1);
-
-  @override
-  Character apply(Character c, Map<String, TermEffectTable> tables) =>
-    choice.fold(c, (c, e) => e.apply(c, tables));
-
-  @override
-  bool get hasChoice => true;
-  @override
-  String toString() => (choice == null) ?
-    "Choose from multiple benefits" :
-    "${choice.join(", ")}";
-  String get route => type;
-
-  @override
-  TermEffect copy() => ChooseBenefit(options.map((e) => e.copy()).toList(), picks);
 }
 
 class SkillRaisedTo extends TermEffect {

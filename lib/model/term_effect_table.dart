@@ -2,6 +2,8 @@
 import 'package:travchar/model/Dice.dart';
 import 'package:travchar/model/term.dart';
 
+import '../util.dart';
+
 class TermEffectTable {
   final String name;
   final Map<int, TermEffect> table;
@@ -10,13 +12,11 @@ class TermEffectTable {
   TermEffect roll() =>
     dice.tableRoll(table);
 
-  static Map<int, TermEffect> mapTable(Map<String, dynamic> raw) {
+  static Map<int, TermEffect> mapTable(List<dynamic> raw) {
     final table = <int, TermEffect>{};
-    raw.keys.forEach((key) {
-      final i = int.parse(key);
-      final v = TermEffect.parse(raw[key]);
-      table[i] = v;
-    });
+    eachWithIndex(raw, (i, e) =>
+      table[i] = TermEffect.parse(e)
+    );
     return table;
   }
 

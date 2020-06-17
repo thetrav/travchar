@@ -55,7 +55,7 @@ class TermEducationViewState extends State<TermEducationView> {
   void applyEffect(BuildContext c, TermEffect e) {
     final effect = (e.hasChoice) ? Navigator.pushNamed(c,
       "/${e.route}",
-      arguments: Tuple2(character, e)
+      arguments: Tuple3(character, e, widget.education.tables)
     ) : Future.value(e);
     effect.then((result) {
       if(result != null && result is TermEffect) {
