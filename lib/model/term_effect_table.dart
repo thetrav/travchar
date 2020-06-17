@@ -15,7 +15,7 @@ class TermEffectTable {
   static Map<int, TermEffect> mapTable(List<dynamic> raw) {
     final table = <int, TermEffect>{};
     eachWithIndex(raw, (i, e) =>
-      table[i] = TermEffect.parse(e)
+      table[i+1] = TermEffect.parse(e)
     );
     return table;
   }
