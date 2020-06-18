@@ -20,6 +20,6 @@ class SkillListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) =>
     Column(
-      children: skills.map(skillTile).toList()
+      children: skills.where((s) => s.rank != null).map(skillTile).toList()
     );
 }

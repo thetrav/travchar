@@ -1,40 +1,85 @@
 import 'dart:convert';
 
+import 'package:travchar/util.dart';
+
 class Skill {
   String name;
   int rank;
-  Skill parent;
-  List<Skill> specialisations;
+  List<Specialisation> specialisations;
+  List<SubSkill> subSkills;
 
-  static List<Skill> load(String source) {
-    Map<String, dynamic> raw = jsonDecode(source) as Map<String,dynamic>;
-    return raw.keys.map<Skill>((k) {
-      final skill = Skill(
-        name: k,
-        rank: 0,
-      );
-      skill.specialisations = raw[k].map<Skill>(
-          (s) => Skill(name: s, parent: skill, rank: 0, specialisations: [])
-      ).toList();
-      return skill;
-    }).toList();
+  static List<Skill> load(String source)=>
+    jsonDecode(source).map<Skill>((raw) =>
+      Skill.parse(raw)
+    ).toList();
+
+  static Skill parse(d) {
+    final skill = Skill(
+      name: d["name"],
+      rank: null,
+    );
+    skill.specialisations = parseList(d, "specialisations", Specialisation.parse);
+    skill.subSkills = parseList(d, "subSkills", SubSkill.parse);
+    return skill;
   }
 
-  Skill({this.name, this.rank, this.parent, this.specialisations});
-  Skill copy({String name, int rank, Skill parent, List<Skill>specialisations})
+  Skill({this.name, this.rank, this.specialisations, this.subSkills});
+  Skill copy({String name, int rank,
+    List<Specialisation>specialisations,
+    List<SubSkill> subSkills})
     => Skill(
       name: name ?? this.name,
       rank: rank ?? this.rank,
-      parent: parent ?? this.parent,
-      specialisations: specialisations ?? this.specialisations
+      specialisations: specialisations ?? this.specialisations,
+      subSkills: subSkills ?? this.subSkills
     );
 
   @override
   String toString() {
-    if(parent == null) {
-      return "Skill: $name @$rank";
+    final start = "Skill: $name @$rank";
+    if(specialisations != null) {
+      return "$start: ${specialisations.join(", ")}";
+    } else if (subSkills != null) {
+      return "$start: ${subSkills.join(",")}";
     } else {
-      return "Skill: ${parent.name} ($name) @$rank";
+      return start;
     }
   }
+}
+
+class SubSkill {
+  String name;
+  int rank;
+
+  SubSkill({this.name, this.rank});
+  SubSkill copy({String name, int rank, Skill parent}) => SubSkill(
+    name: name ?? this.name,
+    rank: rank ?? this.rank
+  );
+
+  static SubSkill parse(d) => SubSkill(
+    name: d as String,
+    rank: null
+  );
+
+  @override
+  String toString() => "SubSkill $name @$rank";
+}
+
+class Specialisation {
+  String name;
+  int rank;
+
+  Specialisation({this.name, this.rank});
+  Specialisation copy({String name, int rank, Skill parent}) => Specialisation(
+    name: name ?? this.name,
+    rank: rank ?? this.rank
+  );
+  static Specialisation parse(d) => Specialisation(
+    name: d as String,
+    rank: null
+  );
+
+  @override
+  String toString() => "Specialisation $name @$rank";
 }

@@ -42,14 +42,17 @@ class TermApplicationViewState extends State<TermApplicationView> {
 
   List<Widget> educations(BuildContext c) {
     if(education == null) {
-      return widget.tables.advancedEducations
-        .where((e) => e.canApply(widget.character))
-        .map((e) =>
-        ListTile(
-          title: Text(e.name),
-          subtitle: Text("admission: ${e.admission}"),
-          onTap: () => applyForEducation(c, e),
-        )).toList();
+      return [
+        Text("Enroll in"),
+        ...widget.tables.advancedEducations
+          .where((e) => e.canApply(widget.character))
+          .map((e) =>
+          ListTile(
+            title: Text(e.name),
+            subtitle: Text("admission: ${e.admission}"),
+            onTap: () => applyForEducation(c, e),
+          )).toList()
+      ];
     }
     return [Text(education)];
   }
@@ -64,7 +67,6 @@ class TermApplicationViewState extends State<TermApplicationView> {
           Expanded(child: CharacterView(widget.character)),
           Expanded(child: Column(
             children: [
-              Text("Enroll in"),
               ...educations(context),
               Text("or"),
               TButton("Career", (){}),

@@ -1,7 +1,6 @@
 import 'package:travchar/model/Character.dart';
 import 'package:travchar/model/Dice.dart';
 import 'package:travchar/model/advanced_education.dart';
-import 'package:travchar/model/skill.dart';
 
 import '../util.dart';
 import 'choose_term_benefit.dart';
@@ -85,7 +84,7 @@ class RolledBenefit extends TermEffect {
   @override
   String toString() => !rolled ?
     "roll on $table table" :
-    "rolled: $roll on $table";
+    "roll ($roll) on $table table";
   String get route => type;
 
   @override
@@ -135,15 +134,11 @@ class SkillGainBenefit extends TermEffect {
   bool get hasChoice => false;
   @override
   Character apply(Character c, Map<String, TermEffectTable> tables) {
-    Map<String, Skill> newSkills = (c.skill(skill) == null) ?
-      {...c.skills, skill: Skill(name:skill, rank: 0)} :
-      mapMap(c.skills, (Skill skill) =>
-        skill.name == this.skill ?
-          skill.copy(rank: skill.rank + amount) :
-          skill
-      );
-
-    return c.copy(skills: newSkills);
+    return c.copy(skills: c.skills.map((s) =>
+      s.name == skill ?
+        s.copy(rank: (s.rank ?? 0) + amount) :
+        s
+    ).toList());
   }
 
   @override
@@ -239,14 +234,9 @@ class SkillRaisedTo extends TermEffect {
 
   @override
   Character apply(Character c, Map<String, TermEffectTable> tables) {
-    final newSkills =
-      (c.skill(skill) == null) ?
-        {...c.skills, skill: Skill(name: skill, rank: rank)} :
-        mapMap(c.skills, (skill) => skill.name == this.skill ?
-          skill.copy(rank: rank) :
-          skill
-        );
-    return c.copy(skills: newSkills);
+    return c.copy(skills: c.skills.map((s) =>
+      s.name == skill && (s.rank ?? -1) < rank ? s.copy(rank: rank) : s
+    ).toList());
   }
 
   @override

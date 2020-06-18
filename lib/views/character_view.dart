@@ -23,7 +23,7 @@ class CharacterView extends StatelessWidget {
       StatTable(character.stats),
     ];
     if(character.skills != null) {
-      children.add(SkillListView(character.skills.values.toList()));
+      children.add(SkillListView(character.skills));
     }
     if(character.accreditations != null) {
       children.add(ListTile(

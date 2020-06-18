@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:travchar/components/TButton.dart';
 import 'package:travchar/components/t_pick_list.dart';
 import 'package:travchar/model/Character.dart';
-import 'package:travchar/model/skill.dart';
 import 'package:travchar/model/tables.dart';
 import 'package:tuple/tuple.dart';
 
@@ -45,16 +44,15 @@ class BackgroundSkillsViewState extends State<BackgroundSkillsView> {
   }
 
   void done(BuildContext c) {
-    final skillMap = <String, Skill>{};
-    selected.forEach((s) {
-      print("saving $s");
-      skillMap[s] = widget.tables.skills.firstWhere((skill) => s == skill.name);
-    });
     Navigator.pushReplacementNamed(c, widget.nextRoute,
       arguments:Tuple2<Character, Tables>(
         widget.character.copy(
           age: 18,
-          skills: skillMap
+          skills: widget.character.skills.map((skill) =>
+            selected.contains(skill.name) ?
+              skill.copy(rank: 0) :
+              skill
+          ).toList()
         ),
         widget.tables
       )

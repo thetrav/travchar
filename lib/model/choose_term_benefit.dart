@@ -11,14 +11,16 @@ class ChooseBenefit extends TermEffect {
   final List<TermEffect> options;
   final List<String> tables;
   final int picks;
-  ChooseBenefit({this.options, this.picks, this.tables});
+  final String label;
+  ChooseBenefit({this.options, this.picks, this.tables, this.label});
   List<TermEffect> choice;
 
   static ChooseBenefit parse(d) =>
     ChooseBenefit(
       options: parseList(d, "options", TermEffect.parse),
       picks: d['picks']?? 1,
-      tables: parseList(d, "tables", (s) => s.toString())
+      tables: parseList(d, "tables", (s) => s.toString()),
+      label: d["label"]
     );
 
   @override
@@ -29,14 +31,17 @@ class ChooseBenefit extends TermEffect {
   bool get hasChoice => true;
   @override
   String toString() => (choice == null) ?
-  "Choose from multiple benefits" :
-  "${choice.join(", ")}";
+    (label == null) ?
+      "Choose from multiple benefits" :
+      label :
+    "${choice.join(", ")}";
   String get route => type;
 
   @override
   TermEffect copy() => ChooseBenefit(
     options: options?.map((e) => e.copy())?.toList(),
     picks: picks,
-    tables: tables
+    tables: tables,
+    label: label
   );
 }

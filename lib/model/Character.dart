@@ -1,18 +1,14 @@
-
-
 import 'package:travchar/model/skill.dart';
 import 'package:travchar/model/term.dart';
 
 import 'Homeworld.dart';
-
-
 
 class Character {
   String name;
   int age;
   Homeworld homeworld;
   Map<String, Statistic> stats;
-  Map<String, Skill> skills;
+  List<Skill> skills;
   List<String> accreditations;
   List<Term> terms;
 
@@ -29,25 +25,14 @@ class Character {
   Statistic stat(String s) => stats[s];
   bool accredited(String a) => accreditations?.contains(a) ?? false;
 
-  Map<String, Skill> get specialisations {
-    final specs = <String, Skill>{};
-    skills.values.forEach ((skill) => skill.specialisations.forEach((s)=> specs[s.name] = s));
-    return specs;
-  }
-
-  Skill skill(String name) {
-    if(skills.containsKey(name)) {
-      return skills[name];
-    }
-    return null;
-  }
+  Skill skill(String name) => skills.firstWhere((s) => s.name == name);
 
   Character copy({
     String name,
     int age,
     Homeworld homeworld,
     Map<String, Statistic> stats,
-    Map<String, Skill> skills,
+    List<Skill> skills,
     List<String> accreditations,
     List<Term> terms
   }) {

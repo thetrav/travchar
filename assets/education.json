@@ -8,15 +8,20 @@
     "graduation": {"type": "bestStatCheck", "stats": {"int": 5,
       "end": 5}
     },
+    "honours": {"type":  "never"},
     "pass_effects": [
       {"type": "yearsPass", "years": 2},
-      {"type": "chooseBenefit", "picks": 3, "tables": ["raiseSkills"] },
-      {"type": "chooseBenefit", "options": [
+      {"type": "chooseBenefit", "picks": 3,
+        "label": "raise 3 skills to 0",
+        "tables": ["raiseSkills"] },
+      {"type": "chooseBenefit",
+        "label": "roll on personal development",
+        "options": [
         {"type":  "rolledBenefit", "table": "personalDevelopmentA"},
         {"type": "rolledBenefit", "table": "personalDevelopmentB"}
       ]},
       {"type": "statRasiedTo", "stat": "edu", "score":  4},
-      {"type":  "certification", "code":  "ED4"}
+      {"type": "certification", "code":  "ED4"}
     ],
     "fail_effects": [
       {"type": "yearsPass", "years": 2},
@@ -25,6 +30,7 @@
         {"type": "rolledBenefit", "table": "personalDevelopmentB"}
       ]}
     ],
+    "honours_effects": [],
     "tables": {
       "personalDevelopmentA": [
         {"type": "skillGain", "skill": "Admin", "amount": 1},
@@ -64,9 +70,69 @@
     ],
     "admission": {"type": "statCheck", "stat": "int", "target": 7},
     "graduation": {"type": "statCheck", "stat": "int", "target": 7},
-    "pass_effects": [],
-    "fail_effects": [],
-    "tables": {}
+    "honours": {"type": "statCheck", "stat": "int", "target": 11},
+    "pass_effects": [
+      {"type": "chooseBenefit", "label": "any four skills from one of Arts or Science",
+        "options": [
+          {"type": "chooseBenefit", "picks": 4, "tables": ["raiseArtsSkills"] },
+          {"type": "chooseBenefit", "picks": 4, "tables": ["raiseScienceSkills"] }
+      ]},
+      {"type": "chooseBenefit", "picks": 2, "label": "any two skills from Arts and/or Science",
+        "tables": ["raiseArtsSkills", "raiseScienceSkills"] },
+      {"type": "chooseBenefit", "picks": 2, "label": "two skill rolls from own department and/or personal development",
+        "options": [
+        {"type":  "rolledBenefit", "table": "arts"},
+        {"type":  "rolledBenefit", "table": "science"},
+        {"type":  "rolledBenefit", "table": "personalDevelopmentA"},
+        {"type":  "rolledBenefit", "table": "personalDevelopmentB"}
+        ] },
+      {"type": "statRasiedTo", "stat": "edu", "score":  7},
+      {"type": "chooseBenefit", "label": "Select Certification",
+        "picks": 2, "options": [
+        {"type":  "certification", "code":  "BA"},
+        {"type":  "certification", "code":  "BBA"},
+        {"type":  "certification", "code":  "BFA"},
+        {"type":  "certification", "code":  "BSc"}
+      ]}
+    ],
+    "fail_effects": [
+      {"type":  "rolledBenefit", "table": "failure"},
+      {"type": "chooseBenefit", "picks": 2,
+        "label": "one personal development roll",
+        "options": [
+          {"type":  "rolledBenefit", "table": "personalDevelopmentA"},
+          {"type":  "rolledBenefit", "table": "personalDevelopmentB"}
+        ]}
+    ],
+    "honours_effects": [
+      {"type": "chooseBenefit",
+        "label": "Gain one skill studied from own department at level 1",
+        "tables": ["honoursSkillRaise"]},
+      {"type": "statGain", "stat": "edu", "amount": 1}
+    ],
+    "tables": {
+      "arts": [
+
+      ],
+      "science": [
+
+      ],
+      "personalDevelopmentA": [
+
+      ],
+      "personalDevelopmentB": [
+
+      ],
+      "raiseArtsSkills": [
+
+      ],
+      "raiseScienceSkills": [
+
+      ],
+      "honoursSkillRaise": [
+
+      ]
+    }
   },
   {
     "name": "Merchant Academy",
@@ -78,8 +144,10 @@
     ],
     "admission": {"type": "statCheck", "stat": "int", "target": 7},
     "graduation": {"type": "statCheck", "stat": "int", "target": 7},
+    "honours": {"type":  "never"},
     "pass_effects": [],
     "fail_effects": [],
+    "honours_effects": [],
     "tables": {}
   },
   {
@@ -92,6 +160,7 @@
     ],
     "admission": {"type": "statCheck", "stat": "int", "target": 9},
     "graduation": {"type": "statCheck", "stat": "end", "target": 7},
+    "honours": {"type":  "never"},
     "pass_effects": [],
     "fail_effects": [],
     "tables": {}
@@ -106,8 +175,10 @@
     ],
     "admission": {"type": "statCheck", "stat": "int", "target": 9},
     "graduation": {"type": "statCheck", "stat": "end", "target": 7},
+    "honours": {"type":  "never"},
     "pass_effects": [],
     "fail_effects": [],
+    "honours_effects": [],
     "tables": {}
   },
   {
@@ -117,8 +188,10 @@
     ],
     "admission": {"type": "statCheck", "stat": "end", "target": 7},
     "graduation": {"type": "automatic"},
+    "honours": {"type":  "never"},
     "pass_effects": [],
     "fail_effects": [],
+    "honours_effects": [],
     "tables": {}
   },
   {
@@ -133,8 +206,10 @@
     ],
     "admission": {"type": "statCheck", "stat": "int", "target": 7},
     "graduation": {"type": "statCheck", "stat": "end", "target": 7},
+    "honours": {"type":  "never"},
     "pass_effects": [],
     "fail_effects": [],
+    "honours_effects": [],
     "tables": {}
   },
   {
@@ -149,8 +224,10 @@
     ],
     "admission": {"type": "statCheck", "stat": "int", "target": 7},
     "graduation": {"type": "statCheck", "stat": "end", "target": 7},
+    "honours": {"type":  "never"},
     "pass_effects": [],
     "fail_effects": [],
+    "honours_effects": [],
     "tables": {}
   },
   {
@@ -168,8 +245,10 @@
     ],
     "admission": {"type": "statCheck", "stat": "int", "target": 8},
     "graduation": {"type": "statCheck", "stat": "end", "target": 8},
+    "honours": {"type":  "never"},
     "pass_effects": [],
     "fail_effects": [],
+    "honours_effects": [],
     "tables": {}
   },
   {
@@ -180,8 +259,10 @@
     ],
     "admission": {"type": "statCheck", "stat": "int", "target": 7},
     "graduation": {"type": "statCheck", "stat": "int", "target": 7},
+    "honours": {"type":  "never"},
     "pass_effects": [],
     "fail_effects": [],
+    "honours_effects": [],
     "tables": {}
   }
 ]

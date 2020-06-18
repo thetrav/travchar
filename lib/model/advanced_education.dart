@@ -12,8 +12,10 @@ class AdvancedEducation {
   final List<Requirement> requirements;
   final Requirement admission;
   final Requirement graduation;
+  final Requirement honours;
   final List<TermEffect> passEffects;
   final List<TermEffect> failEffects;
+  final List<TermEffect> honoursEffects;
   final Map<String, TermEffectTable> tables;
 
   bool canApply(Character c) =>
@@ -24,8 +26,10 @@ class AdvancedEducation {
     this.requirements,
     this.admission,
     this.graduation,
+    this.honours,
     this.passEffects,
     this.failEffects,
+    this.honoursEffects,
     this.tables
   });
 
@@ -35,8 +39,10 @@ class AdvancedEducation {
       requirements: parseList(d, "requirements", Requirement.parse),
       admission: Requirement.parse(d["admission"]),
       graduation: Requirement.parse(d["graduation"]),
+      honours: Requirement.parse(d["honours"]),
       passEffects: parseList(d, "pass_effects", TermEffect.parse),
       failEffects: parseList(d, "fail_effects", TermEffect.parse),
+      honoursEffects: parseList(d, "honours_effects", TermEffect.parse),
       tables: TermEffectTable.parse(d["tables"])
     );
 
@@ -48,8 +54,10 @@ class AdvancedEducation {
     requirements: requirements,
     admission: admission,
     graduation: graduation,
+    honours: honours,
     passEffects: passEffects.map((e)=> e.copy()).toList(),
     failEffects: failEffects.map((e)=> e.copy()).toList(),
+    honoursEffects: honoursEffects.map((e)=> e.copy()).toList(),
     tables: tables
   );
 }

@@ -45,7 +45,10 @@ class HomeworldViewState extends State<HomeworldLoadedView> {
   void select(Homeworld h, BuildContext c) {
     Navigator.pushReplacementNamed(c, widget.nextRoute,
       arguments: Tuple2<Character, Tables>(
-        widget.character.copy(homeworld: h),
+        widget.character.copy(
+          homeworld: h,
+          skills: widget.tables.skills.map((s) => s.copy()).toList()
+        ),
         widget.tables
       )
     );

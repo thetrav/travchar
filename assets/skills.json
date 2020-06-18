@@ -1,122 +1,205 @@
-{
-  "Admin": [],
-  "Advocate": [],
-  "Animals": ["Riding", "Vetinary", "Training"],
-  "Athletics": ["Co-ordination", "Endurance", "Strength"],
-  "Archery": [],
-  "Art": ["Acting", "Dance", "Holography", "Instrument", "Sculpting", "Writing"],
-  "Astrogation": [],
-  "Battledress": [],
-  "Broker": [],
-  "Carouse": [],
-  "Comms": [],
-  "Computers": [],
-  "Deception": [],
-  "Diplomat": [],
-  "Drive": ["Mole", "Tracked", "Wheeled", "Bike"],
-  "Engineering (Starship Operations)": ["M-Drive", "J-Drive", "Electronics", "Life Support", "Power"],
-  "Explosives": [],
-  "Flyer": ["Grav", "Fixed Wing", "Rotary Wing"],
-  "Gambling": [],
-  "Gunnery": ["Turrets", "Ortillery", "Screens", "Bays", "Spinal"],
-  "Gun Combat": ["Slug Pistol", "Slug Rifle", "Energy Pistol", "Energy Rifle", "Support Weapon"],
-  "Heavy Weapons": ["Rocket/Missile", "Grenade Launcher", "Man-portable Artillery", "Mortar", "Field Artillery", "Advanced Grenade Pod", "Laser Designation", "Vehicle Gunnery", "Meson Artillery"],
-  "Investigate": [],
-  "Jack of All Trades": [],
-  "Language": [
-    "Galanglic (Trade Tongue)",
-    "Vilani (Traditional)",
-    "Zdetl (Zhodani)",
-    "Oynpirith (Droyne)",
-    "Gvegh (Common Vagr)",
-    "Karak'kree (K'kree)",
-    "Trokh (Aslan)",
-    "Various Local Dialects and Others"
-  ],
-  "Leadership": [],
-  "Mechanic": [],
-  "Medic": [],
-  "Melee": [
-    "Brawling",
-    "Martial Arts",
-    "Blade",
-    "Bludgeon",
-    "Natural Weapon",
-    "Personal Energy Weapon",
-    "Bayonet Fighting"
-  ],
-  "Navigation":  [],
-  "Persuade":  [],
-  "Pilot": [
-    "Small Craft",
-    "Spacecraft",
-    "Capital Ships",
-    "Atmospheric Operations"
-    ],
-  "Recon": [
-    "Remote Operations"
-  ],
-  "Physical Sciences": [
-    "Physics",
-    "Chemistry",
-    "Artificial Intelligence",
-    "Advanced Mathematics",
-    "Gravitics"
-  ],
-  "Life Sciences": [
-    "Biology",
-    "Cybernetics",
-    "Genetics",
-    "Psionicology",
-    "Xenology"
-  ],
-  "Social Sciences": [
-    "Archaeology",
-    "Economics",
-    "History",
-    "Philosophy",
-    "Psychology",
-    "Sophontology"
-  ],
-  "Political Science": [
-    "Space Sciences",
-    "Planetology",
-    "Cosmology",
-    "Orbital Mechanics",
-    "Jump Theory",
-    "Stellar Astronomy"
-  ],
-  "Seafarer": [
-    "Sailing",
-    "Submarine",
-    "Small Craft",
-    "Ships"
-  ],
-  "Sensors": [],
-  "Stealth": [],
-  "Steward": [],
-  "Streetwise": [],
-  "Survival": [],
-  "Tactics": [
-    "Military Tactics",
-    "Naval Tactics"
-    ],
-  "Trade": [],
-  "Biologicals": [],
-  "Civil Engineering": [],
-  "Naval Architecture": [],
-  "Agritech": [],
-  "Software": [],
-  "Polymers": [],
-  "Aviation Engineering": [],
-  "Mining": [],
-  "Metallurgy": [],
-  "Pharmaceuticals": [],
-  "Armourer": [],
-  "Electronics": [],
-  "Robotics": [],
-  "Advertising": [],
-  "Urban Maintenance": [],
-  "Vac Suit": [],
-  "Zero G": []
-}
+[
+  {"name": "Admin"},
+  {"name": "Advocate"},
+  {"name": "Animals", 
+    "specialisations": [
+      "Riding",
+      "Vetinary",
+      "Training"
+    ]
+  },
+  {"name": "Athletics",
+    "specialisations": [
+      "Co-ordination",
+      "Endurance",
+      "Strength"
+    ]
+  },
+  {"name": "Archery"},
+  {"name": "Art", 
+    "subSkills": [
+      "Acting",
+      "Dance",
+      "Holography",
+      "Instrument",
+      "Sculpting",
+      "Writing"
+    ]
+  },
+  {"name": "Astrogation"},
+  {"name": "Battledress"},
+  {"name": "Broker"},
+  {"name": "Carouse"},
+  {"name": "Comms"},
+  {"name": "Computers"},
+  {"name": "Deception"},
+  {"name": "Diplomat"},
+  {"name": "Drive",
+    "specialisations": [
+      "Mole",
+      "Tracked",
+      "Wheeled",
+      "Bike"
+    ]
+  },
+  {"name": "Engineering",
+    "specialisations": [
+      "M-Drive",
+      "J-Drive",
+      "Electronics",
+      "Life Support",
+      "Power"
+    ]
+  },
+  {"name": "Explosives"},
+  {"name": "Flyer",
+    "specialisations": ["Grav", "Fixed Wing", "Rotary Wing"]
+  },
+  {"name": "Gambling"},
+  {"name": "Gunnery",
+    "specialisations": ["Turrets", "Ortillery", "Screens", "Bays", "Spinal"]
+  },
+  {"name": "Gun Combat",
+    "specialisations": [
+      "Slug Pistol",
+      "Slug Rifle",
+      "Energy Pistol",
+      "Energy Rifle",
+      "Support Weapon"
+    ]
+  },
+  {"name": "Heavy Weapons",
+    "specialisations": [
+      "Rocket/Missile",
+      "Grenade Launcher",
+      "Man-portable Artillery",
+      "Mortar",
+      "Field Artillery",
+      "Advanced Grenade Pod",
+      "Laser Designation",
+      "Vehicle Gunnery",
+      "Meson Artillery"
+    ]
+  },
+  {"name": "Investigate"},
+  {"name": "Jack of All Trades"},
+  {"name": "Language",
+    "specialisations": [
+      "Galanglic (Trade Tongue)",
+      "Vilani (Traditional)",
+      "Zdetl (Zhodani)",
+      "Oynpirith (Droyne)",
+      "Gvegh (Common Vagr)",
+      "Karak'kree (K'kree)",
+      "Trokh (Aslan)",
+      "Various Local Dialects and Others"
+    ]
+  },
+  {"name": "Leadership"},
+  {"name": "Mechanic"},
+  {"name": "Medic"},
+  {"name": "Melee",
+    "specialisations": [
+      "Brawling",
+      "Martial Arts",
+      "Blade",
+      "Bludgeon",
+      "Natural Weapon",
+      "Personal Energy Weapon",
+      "Bayonet Fighting"
+    ]
+  },
+  {"name": "Navigation"},
+  {"name": "Persuade"},
+  {"name": "Pilot",
+    "specialisations": [
+      "Small Craft",
+      "Spacecraft",
+      "Capital Ships",
+      "Atmospheric Operations"
+    ]
+  },
+  {"name": "Recon",
+    "specialisations": [
+      "Remote Operations"
+    ]
+  },
+  {"name": "Physical Sciences",
+    "specialisations": [
+      "Physics",
+      "Chemistry",
+      "Artificial Intelligence",
+      "Advanced Mathematics",
+      "Gravitics"
+    ]
+  },
+  {"name": "Life Sciences",
+    "specialisations": [
+      "Biology",
+      "Cybernetics",
+      "Genetics",
+      "Psionicology",
+      "Xenology"
+    ]
+  },
+  {"name": "Social Sciences",
+    "specialisations": [
+      "Archaeology",
+      "Economics",
+      "History",
+      "Philosophy",
+      "Psychology",
+      "Sophontology"
+    ]
+  },
+  {"name": "Political Science",
+    "specialisations": [
+      "Space Sciences",
+      "Planetology",
+      "Cosmology",
+      "Orbital Mechanics",
+      "Jump Theory",
+      "Stellar Astronomy"
+    ]
+  },
+  {"name": "Seafarer",
+    "specialisations": [
+      "Sailing",
+      "Submarine",
+      "Small Craft",
+      "Ships"
+    ]
+  },
+  {"name": "Sensors"},
+  {"name": "Stealth"},
+  {"name": "Steward"},
+  {"name": "Streetwise"},
+  {"name": "Survival"},
+  {"name": "Tactics",
+    "subSkills": [
+      "Military Tactics",
+      "Naval Tactics"
+    ]
+  },
+  {"name": "Trade",
+    "subSkills": [
+      "Biologicals",
+      "Civil Engineering",
+      "Naval Architecture",
+      "Agritech",
+      "Software",
+      "Polymers",
+      "Aviation Engineering",
+      "Mining",
+      "Metallurgy",
+      "Pharmaceuticals",
+      "Armourer",
+      "Electronics",
+      "Robotics",
+      "Advertising",
+      "Urban Maintenance"
+    ]
+  },
+  {"name": "Vac Suit"},
+  {"name": "Zero G"}
+]

@@ -11,6 +11,7 @@ abstract class Requirement {
     print("parsing requirement ${jsonEncode(data)}");
     return {
       "automatic": (d) => AutomaticPass(),
+      "never": (d) => NeverPass(),
       "stat": StatRequirement.parse,
       "homeworld": HomeworldRequirement.parse,
       "skill": SkillRequirement.parse,
@@ -40,6 +41,14 @@ class AutomaticPass extends Requirement {
 
   @override
   String toString() => "Automatic";
+}
+
+class NeverPass extends Requirement {
+  @override
+  bool evaluate(Character c) => false;
+
+  @override
+  String toString() => "Never";
 }
 
 class OrRequirement extends Requirement {
@@ -84,8 +93,7 @@ class SkillRequirement extends Requirement {
 
   @override
   bool evaluate(Character c) =>
-    c.skills.containsKey(skill) &&
-    compareNum(c.skills[skill].rank, rank);
+    compareNum(c.skill(skill).rank, rank);
 
   @override
   String toString() => "Has at $skill at $rank";
