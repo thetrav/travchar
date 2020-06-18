@@ -36,49 +36,49 @@
   {"name": "Diplomat"},
   {"name": "Drive",
     "specialisations": [
+      "Bike",
       "Mole",
       "Tracked",
-      "Wheeled",
-      "Bike"
+      "Wheeled"
     ]
   },
   {"name": "Engineering",
     "specialisations": [
-      "M-Drive",
-      "J-Drive",
       "Electronics",
+      "J-Drive",
       "Life Support",
+      "M-Drive",
       "Power"
     ]
   },
   {"name": "Explosives"},
   {"name": "Flyer",
-    "specialisations": ["Grav", "Fixed Wing", "Rotary Wing"]
+    "specialisations": ["Fixed Wing", "Grav", "Rotary Wing"]
   },
   {"name": "Gambling"},
   {"name": "Gunnery",
-    "specialisations": ["Turrets", "Ortillery", "Screens", "Bays", "Spinal"]
+    "specialisations": ["Bays", "Ortillery", "Screens", "Turrets"]
   },
   {"name": "Gun Combat",
     "specialisations": [
-      "Slug Pistol",
-      "Slug Rifle",
       "Energy Pistol",
       "Energy Rifle",
+      "Slug Pistol",
+      "Slug Rifle",
       "Support Weapon"
     ]
   },
   {"name": "Heavy Weapons",
     "specialisations": [
-      "Rocket/Missile",
-      "Grenade Launcher",
-      "Man-portable Artillery",
-      "Mortar",
-      "Field Artillery",
       "Advanced Grenade Pod",
+      "Conventional Artillery",
+      "Grenade Launcher",
       "Laser Designation",
-      "Vehicle Gunnery",
-      "Meson Artillery"
+      "Man-portable Artillery",
+      "Meson Artillery",
+      "Mortar",
+      "Rocket/Missile",
+      "Vehicle Gunnery"
     ]
   },
   {"name": "Investigate"},
@@ -86,12 +86,12 @@
   {"name": "Language",
     "specialisations": [
       "Galanglic (Trade Tongue)",
-      "Vilani (Traditional)",
-      "Zdetl (Zhodani)",
-      "Oynpirith (Droyne)",
       "Gvegh (Common Vagr)",
       "Karak'kree (K'kree)",
+      "Oynpirith (Droyne)",
       "Trokh (Aslan)",
+      "Vilani (Traditional)",
+      "Zdetl (Zhodani)",
       "Various Local Dialects and Others"
     ]
   },
@@ -100,39 +100,27 @@
   {"name": "Medic"},
   {"name": "Melee",
     "specialisations": [
-      "Brawling",
-      "Martial Arts",
+      "Bayonet",
       "Blade",
       "Bludgeon",
+      "Brawling",
+      "Martial Arts",
       "Natural Weapon",
-      "Personal Energy Weapon",
-      "Bayonet Fighting"
+      "Personal Energy Weapon"
     ]
   },
   {"name": "Navigation"},
   {"name": "Persuade"},
   {"name": "Pilot",
     "specialisations": [
-      "Small Craft",
-      "Spacecraft",
+      "Atmospheric Operations",
       "Capital Ships",
-      "Atmospheric Operations"
+      "Small Craft",
+      "Spacecraft"
     ]
   },
-  {"name": "Recon",
-    "specialisations": [
-      "Remote Operations"
-    ]
-  },
-  {"name": "Physical Sciences",
-    "specialisations": [
-      "Physics",
-      "Chemistry",
-      "Artificial Intelligence",
-      "Advanced Mathematics",
-      "Gravitics"
-    ]
-  },
+  {"name": "Recon"},
+  {"name": "Remote Operations"},
   {"name": "Life Sciences",
     "specialisations": [
       "Biology",
@@ -142,32 +130,42 @@
       "Xenology"
     ]
   },
+  {"name": "Physical Sciences",
+    "specialisations": [
+      "Advanced Mathematics",
+      "Artificial Intelligence",
+      "Chemistry",
+      "Gravitics",
+      "Orbital Mechanics",
+      "Physics"
+    ]
+  },
   {"name": "Social Sciences",
     "specialisations": [
       "Archaeology",
       "Economics",
       "History",
       "Philosophy",
+      "Political Science",
       "Psychology",
       "Sophontology"
     ]
   },
-  {"name": "Political Science",
+  {"name": "Space Sciences",
     "specialisations": [
-      "Space Sciences",
-      "Planetology",
       "Cosmology",
-      "Orbital Mechanics",
       "Jump Theory",
+      "Orbital Mechanics",
+      "Planetology",
       "Stellar Astronomy"
     ]
   },
   {"name": "Seafarer",
     "specialisations": [
       "Sailing",
-      "Submarine",
+      "Ships",
       "Small Craft",
-      "Ships"
+      "Submarine"
     ]
   },
   {"name": "Sensors"},
@@ -178,26 +176,28 @@
   {"name": "Tactics",
     "subSkills": [
       "Military Tactics",
-      "Naval Tactics"
+      "Naval Tactics",
+      "Wet Navy Tactics"
     ]
   },
   {"name": "Trade",
     "subSkills": [
+      "Advertising",
+      "Agritech",
+      "Armourer",
+      "Aviation Engineering",
       "Biologicals",
       "Civil Engineering",
-      "Naval Architecture",
-      "Agritech",
-      "Software",
-      "Polymers",
-      "Aviation Engineering",
-      "Mining",
-      "Metallurgy",
-      "Pharmaceuticals",
-      "Armourer",
       "Electronics",
+      "Metallurgy",
+      "Mining",
+      "Naval Architecture",
+      "Pharmaceuticals",
+      "Polymers",
       "Robotics",
-      "Advertising",
-      "Urban Maintenance"
+      "Software",
+      "Urban Maintenance",
+      "Various others"
     ]
   },
   {"name": "Vac Suit"},
