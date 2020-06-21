@@ -1,9 +1,11 @@
 import 'package:travchar/model/Character.dart';
-import 'package:travchar/model/Dice.dart';
-import 'package:travchar/model/advanced_education.dart';
 
-import '../util.dart';
+import 'package:travchar/model/advanced_education.dart';
+import 'package:travchar/model/term/apply_all_benefit.dart';
+
+import '../../util.dart';
 import 'choose_term_benefit.dart';
+import 'rolled_benefit.dart';
 import 'term_effect_table.dart';
 
 abstract class Term {
@@ -25,11 +27,12 @@ class EducationTerm extends Term {
 
 abstract class TermEffect {
   bool get hasChoice;
-  Character apply(Character c, Map<String, TermEffectTable> tables);
+  Character apply(Character c);
   bool qualifies(Character c) => true;
-  static TermEffect parse(d) {
+  static TermEffect parse(d, Map<String, TermEffectTable> tables) {
     print("parsing Term Effect $d");
-    return {
+    return <String, TermEffect Function(dynamic, Map<String, TermEffectTable>)>{
+      ApplyAllBenefit.type: ApplyAllBenefit.parse,
       YearsPass.type: YearsPass.parse,
       RolledBenefit.type: RolledBenefit.parse,
       StatGainBenefit.type: StatGainBenefit.parse,
@@ -39,7 +42,7 @@ abstract class TermEffect {
       StatRaisedTo.type: StatRaisedTo.parse,
       SkillRaisedTo.type: SkillRaisedTo.parse,
       Certification.type: Certification.parse
-    }[d["type"]](d);
+    }[d["type"]](d, tables);
   }
   String get route;
 
@@ -50,9 +53,9 @@ class YearsPass extends TermEffect {
   static String type = "yearsPass";
   final int years;
   YearsPass(this.years);
-  static YearsPass parse(d) => YearsPass(d["years"]);
+  static YearsPass parse(d, tables) => YearsPass(d["years"]);
   @override
-  Character apply(Character c, Map<String, TermEffectTable> tables) => c.copy(age: c.age + years);
+  Character apply(Character c) => c.copy(age: c.age + years);
   @override
   bool get hasChoice => false;
   @override
@@ -61,46 +64,17 @@ class YearsPass extends TermEffect {
   TermEffect copy() => this;
 }
 
-class RolledBenefit extends TermEffect {
-  static String type = "rolledBenefit";
-  final String table;
-  int roll;
-  bool rolled = false;
-  RolledBenefit(this.table);
-  static RolledBenefit parse(d) {
-    return RolledBenefit(d["table"]);
-  }
-
-  @override
-  Character apply(Character c, Map<String, TermEffectTable> tables) {
-    final parsedTable = tables[table].table;
-    roll = dice.roll(1, parsedTable.length).first;
-    rolled = true;
-    return parsedTable[roll].apply(c, tables);
-  }
-
-  @override
-  bool get hasChoice => false;
-  @override
-  String toString() => !rolled ?
-    "roll on $table table" :
-    "roll ($roll) on $table table";
-  String get route => type;
-
-  @override
-  TermEffect copy() => RolledBenefit(table);
-}
 
 class StatGainBenefit extends TermEffect {
   static String type = "statGain";
   final String stat;
   final int amount;
   StatGainBenefit(this.stat, this.amount);
-  static StatGainBenefit parse(d) =>
+  static StatGainBenefit parse(d, tables) =>
     StatGainBenefit(d["stat"], d["amount"]);
 
   @override
-  Character apply(Character c, Map<String, TermEffectTable> tables) {
+  Character apply(Character c) {
     final newStats = mapMap(c.stats, (Statistic stat) => stat.name == this.stat ? stat.copy(
       score: stat.score + amount
     ): stat);
@@ -123,7 +97,7 @@ class SkillGainBenefit extends TermEffect {
   final String skill;
   final int amount;
   SkillGainBenefit(this.skill, this.amount);
-  static SkillGainBenefit parse(d) {
+  static SkillGainBenefit parse(d, tables) {
     if(d["skill"] == null) {
       throw "missing skill in $d";
     }
@@ -133,7 +107,7 @@ class SkillGainBenefit extends TermEffect {
   @override
   bool get hasChoice => false;
   @override
-  Character apply(Character c, Map<String, TermEffectTable> tables) {
+  Character apply(Character c) {
     return c.copy(skills: c.skills.map((s) =>
       s.name == skill ?
         s.copy(rank: (s.rank ?? 0) + amount) :
@@ -153,11 +127,11 @@ class SpecialisationGainBenefit extends TermEffect {
   final String specialisation;
   final int amount;
   SpecialisationGainBenefit(this.skill, this.specialisation, this.amount);
-  static SpecialisationGainBenefit parse(d) =>
+  static SpecialisationGainBenefit parse(d, tables) =>
     SpecialisationGainBenefit(d["skill"], d["specialisation"], d["amount"]);
 
   @override
-  Character apply(Character c, Map<String, TermEffectTable> tables) {
+  Character apply(Character c) {
     print("TODO! Fix specialisations!");
     return c;
   }
@@ -175,14 +149,14 @@ class StatRaisedTo extends TermEffect {
   final String stat;
   final int score;
   StatRaisedTo(this.stat, this.score);
-  static StatRaisedTo parse(d) =>
+  static StatRaisedTo parse(d, tables) =>
     StatRaisedTo(d["stat"], d["score"]);
   @override
   bool qualifies(Character c) =>
     c.stat(stat).score < score;
 
   @override
-  Character apply(Character c, Map<String, TermEffectTable> tables) {
+  Character apply(Character c) {
     final s = c.stat(stat);
     if(s.score < score) {
       return c.copy(stats: mapMap(c.stats, (stat)=>
@@ -206,10 +180,10 @@ class Certification extends TermEffect {
   static String type = "certification";
   final String code;
   Certification(this.code);
-  static Certification parse(d) => Certification(d["code"]);
+  static Certification parse(d, tables) => Certification(d["code"]);
 
   @override
-  Character apply(Character c, Map<String, TermEffectTable> tables) => c.copy(
+  Character apply(Character c) => c.copy(
     accreditations: (c.accreditations ?? []) + [code]
   );
 
@@ -226,14 +200,14 @@ class SkillRaisedTo extends TermEffect {
   final String skill;
   final int rank;
   SkillRaisedTo(this.skill, this.rank);
-  static SkillRaisedTo parse(d) =>
+  static SkillRaisedTo parse(d, tables) =>
     SkillRaisedTo(d["skill"], d["rank"]);
   @override
   bool qualifies(Character c) =>
     (c.skill(skill)?.rank?? -1) < rank;
 
   @override
-  Character apply(Character c, Map<String, TermEffectTable> tables) {
+  Character apply(Character c) {
     return c.copy(skills: c.skills.map((s) =>
       s.name == skill && (s.rank ?? -1) < rank ? s.copy(rank: rank) : s
     ).toList());

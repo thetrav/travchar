@@ -1,12 +1,12 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:travchar/components/TButton.dart';
 import 'package:travchar/model/Character.dart';
 import 'package:travchar/model/advanced_education.dart';
 import 'package:travchar/model/tables.dart';
-import 'package:travchar/model/term.dart';
+import 'package:travchar/model/term/term.dart';
 import 'package:tuple/tuple.dart';
+
+import 'term/term_navigation.dart';
 
 class TermEducationView extends StatefulWidget {
   final String nextRoute;
@@ -52,15 +52,16 @@ class TermEducationViewState extends State<TermEducationView> {
       .where((e)=> e.qualifies(character)).toList();
   }
 
+
+
   void applyEffect(BuildContext c, TermEffect e) {
-    final effect = (e.hasChoice) ? Navigator.pushNamed(c,
-      "/${e.route}",
-      arguments: Tuple3(character, e, widget.education.tables)
-    ) : Future.value(e);
+    final effect = (e.hasChoice) ?
+      getChoice(c, widget.character, e) :
+      Future.value(e);
     effect.then((result) {
       if(result != null && result is TermEffect) {
         setState(() {
-          character = result.apply(character, widget.education.tables);
+          character = result.apply(character);
           effects.remove(e);
           history.add("applied $e");
         });

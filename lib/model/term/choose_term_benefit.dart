@@ -1,31 +1,31 @@
+import 'package:travchar/model/term/term_effect_table.dart';
 
-
-import 'package:travchar/model/term.dart';
-import 'package:travchar/model/term_effect_table.dart';
-
-import '../util.dart';
-import 'Character.dart';
+import "term.dart";
+import '../../util.dart';
+import '../Character.dart';
 
 class ChooseBenefit extends TermEffect {
   static String type = "chooseBenefit";
   final List<TermEffect> options;
   final List<String> tables;
+  final Map<String, TermEffectTable> parsedTables;
   final int picks;
   final String label;
-  ChooseBenefit({this.options, this.picks, this.tables, this.label});
+  ChooseBenefit({this.options, this.picks, this.tables, this.label, this.parsedTables});
   List<TermEffect> choice;
 
-  static ChooseBenefit parse(d) =>
+  static ChooseBenefit parse(d, tables) =>
     ChooseBenefit(
-      options: parseList(d, "options", TermEffect.parse),
+      options: parseList(d, "options", (d) => TermEffect.parse(d, tables)),
       picks: d['picks']?? 1,
       tables: parseList(d, "tables", (s) => s.toString()),
-      label: d["label"]
+      label: d["label"],
+      parsedTables: tables
     );
 
   @override
-  Character apply(Character c, Map<String, TermEffectTable> tables) =>
-    choice.fold(c, (c, e) => e.apply(c, tables));
+  Character apply(Character c) =>
+    choice.fold(c, (c, e) => e.apply(c));
 
   @override
   bool get hasChoice => true;
@@ -35,6 +35,7 @@ class ChooseBenefit extends TermEffect {
       "Choose from multiple benefits" :
       label :
     "${choice.join(", ")}";
+  @override
   String get route => type;
 
   @override
@@ -42,6 +43,7 @@ class ChooseBenefit extends TermEffect {
     options: options?.map((e) => e.copy())?.toList(),
     picks: picks,
     tables: tables,
-    label: label
+    label: label,
+    parsedTables: parsedTables
   );
 }

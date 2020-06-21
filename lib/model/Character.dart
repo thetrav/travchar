@@ -1,5 +1,5 @@
 import 'package:travchar/model/skill.dart';
-import 'package:travchar/model/term.dart';
+import '../model/term/term.dart';
 
 import 'Homeworld.dart';
 

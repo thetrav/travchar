@@ -2,7 +2,7 @@
   {
     "name": "Educational Diploma",
     "requirements": [
-      {"type":  "automatic"}
+      {"type": "stat", "stat": "edu", "score": "3-"}
     ],
     "admission": {"type": "automatic"},
     "graduation": {"type": "bestStatCheck", "stats": {"int": 5,
@@ -65,8 +65,8 @@
   {
     "name": "University",
     "requirements": [
-      {"type": "stat", "stat": "int", "score": "8+"},
-      {"type": "stat", "stat": "edu", "score": "5+"}
+      {"type": "stat", "stat": "edu", "score": "5+"},
+      {"type": "stat", "stat": "int", "score": "8+"}
     ],
     "admission": {"type": "statCheck", "stat": "int", "target": 7},
     "graduation": {"type": "statCheck", "stat": "int", "target": 7},
@@ -74,8 +74,8 @@
     "pass_effects": [
       {"type": "chooseBenefit", "label": "any four skills from one of Arts or Science",
         "options": [
-          {"type": "chooseBenefit", "picks": 4, "tables": ["raiseArtsSkills"] },
-          {"type": "chooseBenefit", "picks": 4, "tables": ["raiseScienceSkills"] }
+          {"type": "chooseBenefit", "picks": 4, "tables": ["raiseArtsSkills"], "label": "Arts" },
+          {"type": "chooseBenefit", "picks": 4, "tables": ["raiseScienceSkills"],"label": "Science" }
       ]},
       {"type": "chooseBenefit", "picks": 2, "label": "any two skills from Arts and/or Science",
         "tables": ["raiseArtsSkills", "raiseScienceSkills"] },
@@ -112,25 +112,138 @@
     ],
     "tables": {
       "arts": [
-
+        {"type": "skillGain", "skill": "Advocate", "amount": 1},
+        {"type": "chooseBenefit", "label": "Art or Social Science",
+          "options": [
+            {"type": "skillGain", "skill": "Art", "amount": 1},
+            {"type": "skillGain", "skill": "Social Sciences", "amount": 1}
+          ]
+        },
+        {"type": "skillGain", "skill": "Computers", "amount": 1},
+        {"type": "skillGain", "skill": "Language", "amount": 1},
+        {"type": "chooseBenefit", "label": "Art or Social Science",
+          "options": [
+            {"type": "skillGain", "skill": "Art", "amount": 1},
+            {"type": "skillGain", "skill": "Social Sciences", "amount": 1}
+          ]
+        },
+        {"type": "chooseBenefit", "label": "Art or Social Science",
+          "options": [
+            {"type": "skillGain", "skill": "Art", "amount": 1},
+            {"type": "skillGain", "skill": "Social Sciences", "amount": 1}
+          ]
+        }
       ],
       "science": [
-
+        {"type": "skillGain", "skill": "Computers", "amount": 1},
+        {"type": "skillGain", "skill": "Engineering", "amount": 1},
+        {"type": "chooseBenefit", "label": "Art or Social Science",
+          "options": [
+            {"type": "skillGain", "skill": "Art", "amount": 1},
+            {"type": "skillGain", "skill": "Social Sciences", "amount": 1}
+          ]
+        },
+        {"type": "chooseBenefit", "label": "Physical or Life Science",
+          "options": [
+            {"type": "skillGain", "skill": "Physical Sciences", "amount": 1},
+            {"type": "skillGain", "skill": "Life Sciences", "amount": 1}
+          ]
+        },
+        {"type": "chooseBenefit", "label": "Space/Physical Science",
+          "options": [
+            {"type": "skillGain", "skill": "Space Sciences", "amount": 1},
+            {"type": "skillGain", "skill": "Physical Sciences", "amount": 1}
+          ]
+        },
+        {"type": "skillGain", "skill": "Medic", "amount": 1}
       ],
       "personalDevelopmentA": [
-
+        {"type": "skillGain", "skill": "Admin", "amount": 1},
+        {"type": "specialisationGain", "skill": "Writing", "amount": 1},
+        {"type": "skillGain", "skill": "Carouse", "amount": 1},
+        {"type": "skillGain", "skill": "Athletics", "amount": 1},
+        {"type": "skillGain", "skill": "Persuade", "amount": 1},
+        {"type": "statGain", "skill": "int", "amount": 1}
       ],
       "personalDevelopmentB": [
-
+        {"type": "skillGain", "skill": "Steward", "amount": 1},
+        {"type": "skillGain", "skill": "Language", "amount": 1},
+        {"type": "skillGain", "skill": "Gambling", "amount": 1},
+        {"type": "skillGain", "skill": "Deception", "amount": 1},
+        {"type": "skillGain", "skill": "Computers", "amount": 1},
+        {"type": "statGain", "skill": "edu", "amount": 1}
       ],
       "raiseArtsSkills": [
-
+        {"type": "skillRaisedTo", "skill": "Advocate", "rank": 0},
+        {"type": "skillRaisedTo", "skill": "Art", "rank": 0},
+        {"type": "skillRaisedTo", "skill": "Social Sciences", "rank": 0},
+        {"type": "skillRaisedTo", "skill": "Computers", "rank": 0},
+        {"type": "skillRaisedTo", "skill": "Language", "rank": 0}
       ],
       "raiseScienceSkills": [
-
+        {"type": "skillRaisedTo", "skill": "Computers", "rank": 0},
+        {"type": "skillRaisedTo", "skill": "Engineering", "rank": 0},
+        {"type": "skillRaisedTo", "skill": "Physical Sciences", "rank": 0},
+        {"type": "skillRaisedTo", "skill": "Life Sciences", "rank": 0},
+        {"type": "skillRaisedTo", "skill": "Space Sciences", "rank": 0},
+        {"type": "skillRaisedTo", "skill": "Physical Sciences", "rank": 0},
+        {"type": "skillRaisedTo", "skill": "Medic", "rank": 0}
       ],
       "honoursSkillRaise": [
-
+        {"type": "skillRaisedTo", "skill": "Advocate", "rank": 1},
+        {"type": "skillRaisedTo", "skill": "Art", "rank": 1},
+        {"type": "skillRaisedTo", "skill": "Social Sciences", "rank": 1},
+        {"type": "skillRaisedTo", "skill": "Computers", "rank": 1},
+        {"type": "skillRaisedTo", "skill": "Language", "rank": 1},
+        {"type": "skillRaisedTo", "skill": "Computers", "rank": 1},
+        {"type": "skillRaisedTo", "skill": "Engineering", "rank": 1},
+        {"type": "skillRaisedTo", "skill": "Physical Sciences", "rank": 1},
+        {"type": "skillRaisedTo", "skill": "Life Sciences", "rank": 1},
+        {"type": "skillRaisedTo", "skill": "Space Sciences", "rank": 1},
+        {"type": "skillRaisedTo", "skill": "Physical Sciences", "rank": 1},
+        {"type": "skillRaisedTo", "skill": "Medic", "rank": 1}
+      ],
+      "failure": [
+        {"type": "applyAll",
+          "effects": [
+            {"type": "yearsPass", "years":  1},
+            {"type": "chooseBenefit", "label": "skills from one year", "picks": 2,
+              "tables": ["failSkills"]}
+          ]
+        },
+        {"type": "applyAll",
+          "effects": [
+            {"type": "yearsPass", "years":  2},
+            {"type": "chooseBenefit", "label": "skills from two years", "picks": 4,
+              "tables": ["failSkills"]}
+          ]
+        },
+        {"type": "applyAll",
+          "effects": [
+            {"type": "yearsPass", "years":  3},
+            {"type": "chooseBenefit", "label": "skills from three years", "picks": 6,
+              "tables": ["failSkills"]}
+          ]
+        }
+      ],
+      "failSkills": [
+        {"type": "skillRaisedTo", "skill": "Admin", "rank": 0},
+        {"type": "skillRaisedTo", "skill": "Advocate", "rank": 0},
+        {"type": "skillRaisedTo", "skill": "Art", "rank": 0},
+        {"type": "skillRaisedTo", "skill": "Athletics", "rank": 0},
+        {"type": "skillRaisedTo", "skill": "Carouse", "rank": 0},
+        {"type": "skillRaisedTo", "skill": "Computers", "rank": 0},
+        {"type": "skillRaisedTo", "skill": "Deception", "rank": 0},
+        {"type": "skillRaisedTo", "skill": "Engineering", "rank": 0},
+        {"type": "skillRaisedTo", "skill": "Gambling", "rank": 0},
+        {"type": "skillRaisedTo", "skill": "Language", "rank": 0},
+        {"type": "skillRaisedTo", "skill": "Life Sciences", "rank": 0},
+        {"type": "skillRaisedTo", "skill": "Persuade", "rank": 0},
+        {"type": "skillRaisedTo", "skill": "Physical Sciences", "rank": 0},
+        {"type": "skillRaisedTo", "skill": "Social Sciences", "rank": 0},
+        {"type": "skillRaisedTo", "skill": "Space Sciences", "rank": 0},
+        {"type": "skillRaisedTo", "skill": "Steward", "rank": 0},
+        {"type": "skillRaisedTo", "skill": "Medic", "rank": 0}
       ]
     }
   },

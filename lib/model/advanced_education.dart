@@ -1,11 +1,11 @@
 import 'dart:convert';
 
 import 'package:travchar/model/requirement.dart';
-import 'package:travchar/model/term.dart';
+import '../model/term/term.dart';
 
 import '../util.dart';
 import 'Character.dart';
-import 'term_effect_table.dart';
+import 'term/term_effect_table.dart';
 
 class AdvancedEducation {
   final String name;
@@ -33,18 +33,20 @@ class AdvancedEducation {
     this.tables
   });
 
-  static AdvancedEducation parse(d) =>
-    AdvancedEducation(
+  static AdvancedEducation parse(d) {
+    final tables = TermEffectTable.parse(d["tables"]);
+    return AdvancedEducation(
       name: d["name"],
       requirements: parseList(d, "requirements", Requirement.parse),
       admission: Requirement.parse(d["admission"]),
       graduation: Requirement.parse(d["graduation"]),
       honours: Requirement.parse(d["honours"]),
-      passEffects: parseList(d, "pass_effects", TermEffect.parse),
-      failEffects: parseList(d, "fail_effects", TermEffect.parse),
-      honoursEffects: parseList(d, "honours_effects", TermEffect.parse),
-      tables: TermEffectTable.parse(d["tables"])
+      passEffects: parseList(d, "pass_effects", (d) => TermEffect.parse(d, tables)),
+      failEffects: parseList(d, "fail_effects", (d) => TermEffect.parse(d, tables)),
+      honoursEffects: parseList(d, "honours_effects", (d) => TermEffect.parse(d, tables)),
+      tables: tables
     );
+  }
 
   static List<AdvancedEducation> load(String source) =>
     jsonDecode(source).map<AdvancedEducation>(AdvancedEducation.parse).toList();

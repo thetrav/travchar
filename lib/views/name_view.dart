@@ -8,7 +8,7 @@ class NameView extends StatelessWidget {
   final String nextRoute;
   NameView(this.nextRoute);
 
-  final TextEditingController txt = new TextEditingController();
+  final TextEditingController txt = new TextEditingController(text: "Captain Fart Pants");
   @override
   Widget build(BuildContext c) =>
     Column(

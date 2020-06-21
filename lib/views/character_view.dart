@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:travchar/model/Character.dart';
-import 'package:travchar/model/term.dart';
+import '../model/term/term.dart';
 import 'package:travchar/views/skill_list.dart';
 import 'package:travchar/views/stats/stat_table.dart';
 
